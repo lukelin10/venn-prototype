@@ -89,20 +89,40 @@ function getRandomItem<T>(array: T[]): T {
   return array[Math.floor(Math.random() * array.length)];
 }
 
-function generateMockToolInvocations(services: string[]): ToolInvocation[] {
+function generateMockToolInvocations(services: string[], query: string): ToolInvocation[] {
+  const hasRuntimeError = query.toLowerCase().includes('error');
+  const hasAccessError = query.toLowerCase().includes('access');
+  
   return services.map((service, index) => {
     const serviceData = mockToolData[service as keyof typeof mockToolData];
     if (!serviceData) return null;
     
-    return {
+    // Determine if this tool should error based on keywords
+    const shouldError = (hasRuntimeError || hasAccessError) && Math.random() < 0.5; // 50% chance if error keywords present
+    const errorType = hasAccessError ? 'access' : 'runtime';
+    
+    const tool: ToolInvocation = {
       id: `tool-${index}`,
       toolName: service,
       description: getRandomItem(serviceData.descriptions),
       parameters: getRandomItem(serviceData.parameters),
-      resultCount: getRandomItem(serviceData.resultCounts),
+      resultCount: shouldError ? 0 : getRandomItem(serviceData.resultCounts),
       status: 'pending' as const,
       isExpanded: true
     };
+    
+    if (shouldError) {
+      tool.error = {
+        type: errorType,
+        message: errorType === 'access' 
+          ? `Access denied: Unable to access ${service} with role "sales-access-role". Contact your system administrator to address access concerns.`
+          : `Failed to complete search in ${service}. Error code: ${Math.floor(Math.random() * 9000) + 1000}. The agent attempted to perform the task but was unable to connect to the service.`,
+        code: errorType === 'runtime' ? `ERR_${Math.floor(Math.random() * 9000) + 1000}` : undefined,
+        role: errorType === 'access' ? 'sales-access-role' : undefined
+      };
+    }
+    
+    return tool;
   }).filter(Boolean) as ToolInvocation[];
 }
 
@@ -148,7 +168,7 @@ export function generateMockThoughtProcess(query: string, services: string[]): T
   return {
     id: `thought-${Date.now()}`,
     queryReasoning: generateQueryReasoning(query),
-    toolInvocations: generateMockToolInvocations(services),
+    toolInvocations: generateMockToolInvocations(services, query),
     finalReasoning: {
       title: reasoning.title,
       steps: reasoning.steps,

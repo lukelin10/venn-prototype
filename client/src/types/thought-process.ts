@@ -4,8 +4,14 @@ export interface ToolInvocation {
   description: string;
   parameters: string;
   resultCount: number;
-  status: 'pending' | 'loading' | 'completed';
+  status: 'pending' | 'loading' | 'completed' | 'error';
   isExpanded: boolean;
+  error?: {
+    type: 'runtime' | 'access';
+    message: string;
+    code?: string;
+    role?: string;
+  };
 }
 
 export interface ReasoningStep {

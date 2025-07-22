@@ -51,9 +51,10 @@ export default function EnhancedChatMessage({ message }: EnhancedChatMessageProp
             setThoughtProcess(prev => {
               if (!prev) return undefined;
               const updated = { ...prev };
+              const tool = updated.toolInvocations[i];
               updated.toolInvocations[i] = {
-                ...updated.toolInvocations[i],
-                status: 'completed' as const
+                ...tool,
+                status: tool.error ? 'error' as const : 'completed' as const
               };
               return updated;
             });

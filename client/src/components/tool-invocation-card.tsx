@@ -1,7 +1,7 @@
 import { SiSalesforce, SiNotion, SiGoogledrive, SiGmail } from "react-icons/si";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ChevronDown, ChevronRight, Loader2 } from "lucide-react";
+import { ChevronDown, ChevronRight, Loader2, AlertTriangle } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ToolInvocation } from "@/types/thought-process";
 import { useEffect } from "react";
@@ -59,15 +59,15 @@ export default function ToolInvocationCard({
   const Icon = serviceConfig?.icon;
   const results = mockResults[toolInvocation.toolName as keyof typeof mockResults] || [];
 
-  // Auto-collapse after completion
+  // Auto-collapse after completion (but not for errors)
   useEffect(() => {
-    if (toolInvocation.status === 'completed' && toolInvocation.isExpanded) {
+    if (toolInvocation.status === 'completed' && toolInvocation.isExpanded && !toolInvocation.error) {
       const timer = setTimeout(() => {
         onToggleExpanded();
       }, 3000);
       return () => clearTimeout(timer);
     }
-  }, [toolInvocation.status, toolInvocation.isExpanded, onToggleExpanded]);
+  }, [toolInvocation.status, toolInvocation.isExpanded, onToggleExpanded, toolInvocation.error]);
 
   const getStatusIcon = () => {
     switch (toolInvocation.status) {
@@ -77,11 +77,13 @@ export default function ToolInvocationCard({
         return <Loader2 className="w-4 h-4 animate-spin text-blue-500" />;
       case 'completed':
         return null; // No status icon when completed, just the service icon
+      case 'error':
+        return null; // No status icon when error, just the service icon
     }
   };
 
   const getResultText = () => {
-    if (toolInvocation.status === 'completed') {
+    if (toolInvocation.status === 'completed' && !toolInvocation.error) {
       return `${toolInvocation.resultCount} result${toolInvocation.resultCount !== 1 ? 's' : ''}`;
     }
     return '';
@@ -92,7 +94,8 @@ export default function ToolInvocationCard({
       "transition-all duration-300 ease-in-out",
       toolInvocation.status === 'pending' && "opacity-60",
       toolInvocation.status === 'loading' && "border-blue-200 shadow-sm",
-      toolInvocation.status === 'completed' && "border-slate-200"
+      toolInvocation.status === 'completed' && "border-slate-200",
+      toolInvocation.status === 'error' && "border-red-200 shadow-sm"
     )}>
       <div className="p-3">
         <Button
@@ -103,7 +106,7 @@ export default function ToolInvocationCard({
         >
           <div className="flex items-center justify-between w-full gap-3">
             <div className="flex items-center space-x-3 flex-1 min-w-0">
-              {toolInvocation.status === 'completed' ? (
+              {(toolInvocation.status === 'completed' || toolInvocation.status === 'error') ? (
                 Icon && <Icon className={`w-4 h-4 ${serviceConfig.color} flex-shrink-0`} />
               ) : (
                 <div className="flex-shrink-0">{getStatusIcon()}</div>
@@ -114,7 +117,9 @@ export default function ToolInvocationCard({
             </div>
             
             <div className="flex items-center space-x-2 flex-shrink-0">
-              {toolInvocation.status === 'completed' && (
+              {toolInvocation.status === 'error' ? (
+                <AlertTriangle className="w-4 h-4 text-red-500" />
+              ) : toolInvocation.status === 'completed' && (
                 <span className="text-sm text-slate-500 whitespace-nowrap">
                   {getResultText()}
                 </span>
@@ -128,7 +133,7 @@ export default function ToolInvocationCard({
           </div>
         </Button>
         
-        {toolInvocation.isExpanded && toolInvocation.status === 'completed' && (
+        {toolInvocation.isExpanded && toolInvocation.status === 'completed' && !toolInvocation.error && (
           <div className="mt-3 pt-3 border-t border-slate-100 animate-in slide-in-from-top-2 duration-200">
             <div className="space-y-2">
               {results.slice(0, toolInvocation.resultCount).map((result, index) => (
@@ -158,6 +163,29 @@ export default function ToolInvocationCard({
                   </div>
                 </div>
               ))}
+            </div>
+          </div>
+        )}
+        
+        {toolInvocation.isExpanded && toolInvocation.status === 'error' && toolInvocation.error && (
+          <div className="mt-3 pt-3 border-t border-red-100 animate-in slide-in-from-top-2 duration-200">
+            <div className="p-3 bg-red-50 rounded-lg border border-red-200">
+              <div className="flex items-start space-x-2">
+                <AlertTriangle className="w-4 h-4 text-red-500 flex-shrink-0 mt-0.5" />
+                <div className="flex-1">
+                  <div className="text-sm font-medium text-red-800 mb-1">
+                    {toolInvocation.error.type === 'access' ? 'Access Denied' : 'Connection Error'}
+                  </div>
+                  <div className="text-sm text-red-700">
+                    {toolInvocation.error.message}
+                  </div>
+                  {toolInvocation.error.code && (
+                    <div className="text-xs text-red-600 mt-1">
+                      Error Code: {toolInvocation.error.code}
+                    </div>
+                  )}
+                </div>
+              </div>
             </div>
           </div>
         )}
