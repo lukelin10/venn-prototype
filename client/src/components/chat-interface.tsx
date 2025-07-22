@@ -17,21 +17,7 @@ interface Message {
 }
 
 export default function ChatInterface() {
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      id: "1",
-      role: "user",
-      content: "Green and sons",
-      timestamp: new Date(),
-    },
-    {
-      id: "2",
-      role: "assistant",
-      content: "salesforce-opportunity",
-      services: ["salesforce"],
-      timestamp: new Date(),
-    },
-  ]);
+  const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [selectedServices, setSelectedServices] = useState<string[]>([
@@ -127,6 +113,15 @@ export default function ChatInterface() {
         ref={chatContainerRef}
         className="flex-1 overflow-y-auto px-4 py-4 space-y-4 chat-scroll"
       >
+        {messages.length === 0 && !isLoading && (
+          <div className="flex items-center justify-center min-h-[400px]">
+            <div className="text-center text-slate-500 max-w-sm px-4">
+              <p className="text-lg mb-2">Ask Venn to help with anything across your enterprise</p>
+              <p className="text-sm">Search through emails, documents, CRM data, and more to get the insights you need.</p>
+            </div>
+          </div>
+        )}
+        
         {messages.map((message) => (
           <ChatMessage key={message.id} message={message} />
         ))}
