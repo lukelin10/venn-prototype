@@ -174,7 +174,9 @@ export default function ToolInvocationCard({
                 <AlertTriangle className="w-4 h-4 text-red-500 flex-shrink-0 mt-0.5" />
                 <div className="flex-1">
                   <div className="text-sm font-medium text-red-800 mb-1">
-                    {toolInvocation.error.type === 'access' ? 'Access Denied' : 'Connection Error'}
+                    {toolInvocation.error.type === 'access' ? 'Access Denied' : 
+                     toolInvocation.error.type === 'platform' ? 'Platform Access Constraint' : 
+                     'Connection Error'}
                   </div>
                   <div className="text-sm text-red-700">
                     {toolInvocation.error.message}

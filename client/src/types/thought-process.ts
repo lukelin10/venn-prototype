@@ -7,7 +7,7 @@ export interface ToolInvocation {
   status: 'pending' | 'loading' | 'completed' | 'error';
   isExpanded: boolean;
   error?: {
-    type: 'runtime' | 'access';
+    type: 'runtime' | 'access' | 'platform';
     message: string;
     code?: string;
     role?: string;
