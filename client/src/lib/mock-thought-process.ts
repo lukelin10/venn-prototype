@@ -3,55 +3,55 @@ import { ThoughtProcess, ToolInvocation, ReasoningStep } from "@/types/thought-p
 const mockToolData = {
   salesforce: {
     descriptions: [
-      "Searching for opportunity data in Salesforce",
-      "Looking up account information in CRM",
-      "Analyzing deal pipeline in Salesforce"
+      "Searched for Green and Sons on Salesforce",
+      "Searched for account information in CRM",
+      "Searched for deal pipeline in Salesforce"
     ],
     parameters: [
       "company: Acme Corp, stage: all",
       "account: Green and Sons, status: active",
       "opportunity: $100K+, close date: Q2 2025"
     ],
-    resultCounts: [8, 12, 5, 15, 3]
+    resultCounts: [2, 3, 5, 1, 4]
   },
   notion: {
     descriptions: [
-      "Searching for documents in Notion workspace",
-      "Looking up meeting notes and project docs",
-      "Analyzing knowledge base entries"
+      "Searched for documents in Notion workspace",
+      "Searched for meeting notes and project docs",
+      "Searched for knowledge base entries"
     ],
     parameters: [
       "title: Acme Corp, type: all documents",
       "tags: meeting-notes, project-updates",
       "date: last 30 days, team: sales"
     ],
-    resultCounts: [7, 23, 11, 4, 18]
+    resultCounts: [3, 7, 4, 2, 6]
   },
   gdrive: {
     descriptions: [
-      "Searching files in Google Drive",
-      "Looking up shared documents and presentations",
-      "Analyzing file activity and permissions"
+      "Searched files in Google Drive",
+      "Searched for shared documents and presentations",
+      "Searched for file activity and permissions"
     ],
     parameters: [
       "name: proposal, type: documents",
       "owner: sales team, modified: last week",
       "folder: client-docs, shared: yes"
     ],
-    resultCounts: [14, 6, 9, 21, 2]
+    resultCounts: [3, 4, 2, 5, 1]
   },
   gmail: {
     descriptions: [
-      "Searching email conversations",
-      "Analyzing recent email threads",
-      "Looking up contact history"
+      "Searched messages",
+      "Searched for recent email threads",
+      "Searched for contact history"
     ],
     parameters: [
       "from: acme.com, subject: proposal",
       "to: sales@company.com, date: last month",
       "thread: client-communication"
     ],
-    resultCounts: [28, 7, 15, 33, 12]
+    resultCounts: [5, 3, 8, 4, 7]
   }
 };
 
