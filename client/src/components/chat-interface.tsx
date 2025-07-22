@@ -4,20 +4,13 @@ import { Textarea } from "@/components/ui/textarea";
 import { Send, MoreHorizontal, ExternalLink } from "lucide-react";
 import VennLogo from "./venn-logo";
 import ServiceSelector from "./service-selector";
-import ChatMessage from "./chat-message";
+import EnhancedChatMessage from "./enhanced-chat-message";
 import LoadingIndicator from "./loading-indicator";
-import { generateMockResponse } from "@/lib/mock-responses";
-
-interface Message {
-  id: string;
-  role: "user" | "assistant";
-  content: string;
-  services?: string[];
-  timestamp: Date;
-}
+import { generateMockThoughtProcess } from "@/lib/mock-thought-process";
+import { EnhancedMessage } from "@/types/thought-process";
 
 export default function ChatInterface() {
-  const [messages, setMessages] = useState<Message[]>([]);
+  const [messages, setMessages] = useState<EnhancedMessage[]>([]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [selectedServices, setSelectedServices] = useState<string[]>([
@@ -47,7 +40,7 @@ export default function ChatInterface() {
   const handleSendMessage = async () => {
     if (!input.trim() || isLoading) return;
 
-    const userMessage: Message = {
+    const userMessage: EnhancedMessage = {
       id: Date.now().toString(),
       role: "user",
       content: input.trim(),
@@ -58,20 +51,21 @@ export default function ChatInterface() {
     setInput("");
     setIsLoading(true);
 
-    // Simulate API delay
+    // Simulate brief delay before starting thought process
     setTimeout(() => {
-      const response = generateMockResponse(userMessage.content, selectedServices);
-      const assistantMessage: Message = {
+      const thoughtProcess = generateMockThoughtProcess(userMessage.content, selectedServices);
+      const assistantMessage: EnhancedMessage = {
         id: (Date.now() + 1).toString(),
         role: "assistant",
-        content: response.type,
-        services: response.services,
+        content: userMessage.content, // Store original query
+        services: selectedServices,
         timestamp: new Date(),
+        thoughtProcess: thoughtProcess
       };
 
       setMessages(prev => [...prev, assistantMessage]);
       setIsLoading(false);
-    }, 2000);
+    }, 800);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -123,7 +117,7 @@ export default function ChatInterface() {
         )}
         
         {messages.map((message) => (
-          <ChatMessage key={message.id} message={message} />
+          <EnhancedChatMessage key={message.id} message={message} />
         ))}
         
         {isLoading && <LoadingIndicator services={selectedServices} />}
