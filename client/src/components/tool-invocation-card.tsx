@@ -101,21 +101,21 @@ export default function ToolInvocationCard({
           onClick={onToggleExpanded}
           disabled={toolInvocation.status === 'pending'}
         >
-          <div className="flex items-center justify-between w-full">
-            <div className="flex items-center space-x-3">
+          <div className="flex items-center justify-between w-full gap-3">
+            <div className="flex items-center space-x-3 flex-1 min-w-0">
               {toolInvocation.status === 'completed' ? (
-                Icon && <Icon className={`w-4 h-4 ${serviceConfig.color}`} />
+                Icon && <Icon className={`w-4 h-4 ${serviceConfig.color} flex-shrink-0`} />
               ) : (
-                getStatusIcon()
+                <div className="flex-shrink-0">{getStatusIcon()}</div>
               )}
-              <span className="text-sm font-normal text-slate-700">
+              <span className="text-sm font-normal text-slate-700 truncate">
                 {toolInvocation.description}
               </span>
             </div>
             
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-2 flex-shrink-0">
               {toolInvocation.status === 'completed' && (
-                <span className="text-sm text-slate-500">
+                <span className="text-sm text-slate-500 whitespace-nowrap">
                   {getResultText()}
                 </span>
               )}
