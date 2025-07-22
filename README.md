@@ -42,12 +42,22 @@ tell me about green and sons error
 ```
 This demonstrates how the system gracefully handles and displays error conditions.
 
+#### 4. Platform Access Constraint Query
+Test platform-level access restrictions:
+```
+tell me about green and sons gateblock
+```
+This triggers a platform access constraint error, showing how the system handles cases where Venn AI itself is not authorized to access certain enterprise services due to security policies.
+
 ### What You'll See
 - **Thought Process**: Real-time display of AI reasoning steps
 - **Tool Invocations**: Visual representation of searches across different platforms
 - **Loading States**: Animated indicators showing active processing
 - **Results**: Synthesized information from multiple sources
-- **Error Handling**: Graceful degradation when issues occur
+- **Error Handling**: Graceful degradation when issues occur, including:
+  - Access permission errors (user-level restrictions)
+  - Connection/runtime errors (service unavailable)
+  - Platform access constraints (system-level restrictions)
 
 ### Technical Features
 - React + TypeScript frontend
