@@ -1,6 +1,6 @@
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { ChevronDown, ChevronRight, Loader2, Settings } from "lucide-react";
+import { ChevronDown, ChevronRight, Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ReasoningStep } from "@/types/thought-process";
 import { useEffect } from "react";
@@ -44,7 +44,16 @@ export default function FinalReasoningCard({
           </div>
         );
       case 'completed':
-        return <Settings className="w-4 h-4 text-slate-600 flex-shrink-0" />;
+        return (
+          <div className="w-4 h-4 flex items-center justify-center">
+            <svg className="w-4 h-4 text-slate-600" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="5.5" cy="6" r="3.5" stroke="currentColor" strokeWidth="1.5" fill="none" opacity="0.7"/>
+              <circle cx="10.5" cy="6" r="3.5" stroke="currentColor" strokeWidth="1.5" fill="none" opacity="0.7"/>
+              <circle cx="8" cy="10" r="3.5" stroke="currentColor" strokeWidth="1.5" fill="none" opacity="0.7"/>
+              <circle cx="8" cy="7.5" r="1" fill="currentColor"/>
+            </svg>
+          </div>
+        );
     }
   };
 
