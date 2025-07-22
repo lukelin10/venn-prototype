@@ -1,8 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 :root {
   --background: hsl(0, 0%, 100%);
@@ -15,7 +15,7 @@
   --card-foreground: hsl(20, 14.3%, 4.1%);
   --border: hsl(214.3, 31.8%, 91.4%);
   --input: hsl(214.3, 31.8%, 91.4%);
-  --primary: hsl(262.1, 83.3%, 57.8%);
+  --primary: hsl(271, 81%, 56%);
   --primary-foreground: hsl(210, 20%, 98%);
   --secondary: hsl(210, 40%, 96%);
   --secondary-foreground: hsl(222.2, 84%, 4.9%);
@@ -23,13 +23,13 @@
   --accent-foreground: hsl(222.2, 84%, 4.9%);
   --destructive: hsl(0, 84.2%, 60.2%);
   --destructive-foreground: hsl(60, 9.1%, 97.8%);
-  --ring: hsl(262.1, 83.3%, 57.8%);
+  --ring: hsl(271, 81%, 56%);
   --radius: 0.5rem;
   
-  /* Venn AI specific colors */
+  /* Venn AI specific colors - matching authentic branding */
   --venn-purple-400: hsl(271, 91%, 65%);
-  --venn-purple-500: hsl(262.1, 83.3%, 57.8%);
-  --venn-purple-600: hsl(258.3, 89.5%, 53.2%);
+  --venn-purple-500: hsl(271, 81%, 56%);
+  --venn-purple-600: hsl(271, 81%, 46%);
 }
 
 .dark {

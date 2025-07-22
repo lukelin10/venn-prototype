@@ -1,10 +1,10 @@
-import { Atom } from "lucide-react";
 import { 
   SiSalesforce, 
   SiNotion, 
   SiGoogledrive, 
   SiGmail 
 } from "react-icons/si";
+import VennLogo from "./venn-logo";
 
 interface LoadingIndicatorProps {
   services: string[];
@@ -21,8 +21,8 @@ export default function LoadingIndicator({ services }: LoadingIndicatorProps) {
   return (
     <div className="space-y-3 animate-fade-in">
       <div className="flex items-start space-x-3">
-        <div className="w-8 h-8 bg-gradient-to-br from-venn-purple-400 to-venn-purple-600 rounded-full flex items-center justify-center flex-shrink-0">
-          <Atom className="w-3 h-3 text-white typing-indicator" />
+        <div className="flex-shrink-0 typing-indicator">
+          <VennLogo size="sm" />
         </div>
         
         <div className="flex-1">

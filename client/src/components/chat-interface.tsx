@@ -1,7 +1,8 @@
 import { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
-import { Send, Atom, MoreHorizontal, ExternalLink } from "lucide-react";
+import { Send, MoreHorizontal, ExternalLink } from "lucide-react";
+import VennLogo from "./venn-logo";
 import ServiceSelector from "./service-selector";
 import ChatMessage from "./chat-message";
 import LoadingIndicator from "./loading-indicator";
@@ -98,12 +99,7 @@ export default function ChatInterface() {
     <div className="flex flex-col h-screen">
       {/* Header */}
       <div className="flex items-center justify-between p-4 border-b border-slate-200 bg-white">
-        <div className="flex items-center space-x-2">
-          <div className="w-6 h-6 bg-gradient-to-br from-venn-purple-400 to-venn-purple-600 rounded-full flex items-center justify-center">
-            <Atom className="w-3 h-3 text-white" />
-          </div>
-          <span className="font-semibold text-slate-800">Venn.ai</span>
-        </div>
+        <VennLogo size="md" />
         <div className="flex items-center space-x-2">
           <Button variant="ghost" size="sm" className="p-1.5 h-auto">
             <MoreHorizontal className="w-4 h-4 text-slate-500" />
@@ -148,14 +144,14 @@ export default function ChatInterface() {
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={handleKeyDown}
               placeholder="Chat with Venn..."
-              className="resize-none border-slate-300 rounded-2xl focus:ring-2 focus:ring-venn-purple-500 focus:border-transparent text-sm"
+              className="resize-none border-slate-300 rounded-2xl focus:ring-2 focus:ring-primary focus:border-transparent text-sm"
               rows={1}
             />
           </div>
           <Button
             onClick={handleSendMessage}
             disabled={!input.trim() || isLoading}
-            className="w-11 h-11 bg-venn-purple-500 hover:bg-venn-purple-600 text-white rounded-full p-0"
+            className="w-11 h-11 bg-primary hover:bg-primary/90 text-white rounded-full p-0"
           >
             <Send className="w-4 h-4" />
           </Button>

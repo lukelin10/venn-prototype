@@ -1,6 +1,5 @@
 import { Button } from "@/components/ui/button";
 import { 
-  Atom, 
   Copy, 
   ThumbsUp, 
   ThumbsDown, 
@@ -14,6 +13,7 @@ import {
   SiGoogledrive, 
   SiGmail 
 } from "react-icons/si";
+import VennLogo from "./venn-logo";
 
 interface Message {
   id: string;
@@ -129,7 +129,7 @@ export default function ChatMessage({ message }: ChatMessageProps) {
   if (message.role === "user") {
     return (
       <div className="flex justify-end animate-fade-in">
-        <div className="max-w-xs bg-venn-purple-500 text-white px-4 py-2 rounded-2xl rounded-br-md">
+        <div className="max-w-xs bg-primary text-white px-4 py-2 rounded-2xl rounded-br-md">
           <p className="text-sm">{message.content}</p>
         </div>
       </div>
@@ -139,8 +139,8 @@ export default function ChatMessage({ message }: ChatMessageProps) {
   return (
     <div className="space-y-3 animate-slide-up">
       <div className="flex items-start space-x-3">
-        <div className="w-8 h-8 bg-gradient-to-br from-venn-purple-400 to-venn-purple-600 rounded-full flex items-center justify-center flex-shrink-0">
-          <Atom className="w-3 h-3 text-white" />
+        <div className="flex-shrink-0">
+          <VennLogo size="sm" />
         </div>
         
         <div className="flex-1 space-y-3">
