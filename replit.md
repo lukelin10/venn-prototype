@@ -117,6 +117,14 @@ The architecture prioritizes developer experience with hot reloading, type safet
 - Removed final reasoning cards to simplify prototype interface (per user preference)
 - Enhanced tool invocation cards to support custom Notion workflow tools
 
+### January 2025 - Salesforce At-Risk Opportunities Test Flow
+- Added two-step Salesforce workflow: search for at-risk opportunities → update close dates
+- Query: "Find all my salesforce opportunities that are at deal risk and update their opportunity close dates to next month"
+- Shows 3 found opportunities with amounts and risk levels
+- Includes access error variant: add "access" to prompt to trigger permission denial
+- Access error shows proper error card with role information and admin contact guidance
+- Dynamic final responses for both successful updates and access permission issues
+
 ### Interface Simplifications
 - Eliminated complex final reasoning/opportunity assessment cards
 - Streamlined thought process to focus on tool invocations and final responses

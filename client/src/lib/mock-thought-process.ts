@@ -140,27 +140,35 @@ function generateNotionPRDUpdateSequence(): ToolInvocation[] {
   ];
 }
 
-function generateSalesforceAtRiskSequence(): ToolInvocation[] {
-  return [
-    {
-      id: 'tool-0',
-      toolName: 'salesforce-search',
-      description: 'Searched for at-risk opportunities in Salesforce',
-      parameters: 'stage: all, risk_level: high, status: active',
-      resultCount: 3,
-      status: 'pending' as const,
-      isExpanded: true
-    },
-    {
-      id: 'tool-1',
-      toolName: 'salesforce-update',
-      description: 'Updated opportunity close dates to next month',
-      parameters: 'opportunities: 3 records, close_date: next_month',
-      resultCount: 3,
-      status: 'pending' as const,
-      isExpanded: true
-    }
-  ];
+function generateSalesforceAtRiskSequence(hasAccessError: boolean = false): ToolInvocation[] {
+  const searchTool = {
+    id: 'tool-0',
+    toolName: 'salesforce-search',
+    description: 'Searched for at-risk opportunities in Salesforce',
+    parameters: 'stage: all, risk_level: high, status: active',
+    resultCount: 3,
+    status: 'pending' as const,
+    isExpanded: true
+  };
+
+  const updateTool = {
+    id: 'tool-1',
+    toolName: 'salesforce-update',
+    description: 'Updated opportunity close dates to next month',
+    parameters: 'opportunities: 3 records, close_date: next_month',
+    resultCount: hasAccessError ? 0 : 3,
+    status: 'pending' as const,
+    isExpanded: true,
+    ...(hasAccessError && {
+      error: {
+        type: 'access' as const,
+        message: 'Access denied: Unable to update opportunities with role "sales-access-role". You need elevated permissions to modify opportunity close dates. Contact your Salesforce administrator to request update access for opportunity records.',
+        role: 'sales-access-role'
+      }
+    })
+  };
+
+  return [searchTool, updateTool];
 }
 
 function generateMockToolInvocations(services: string[], query: string): ToolInvocation[] {
@@ -173,7 +181,7 @@ function generateMockToolInvocations(services: string[], query: string): ToolInv
   
   // Check for Salesforce at-risk opportunities scenario
   if (queryLower.includes('salesforce') && queryLower.includes('risk') && queryLower.includes('update')) {
-    return generateSalesforceAtRiskSequence();
+    return generateSalesforceAtRiskSequence(queryLower.includes('access'));
   }
   
   const hasRuntimeError = queryLower.includes('error');
@@ -225,6 +233,9 @@ function generateQueryReasoning(query: string): string {
   }
   
   if (queryLower.includes('salesforce') && queryLower.includes('risk') && queryLower.includes('update')) {
+    if (queryLower.includes('access')) {
+      return `I'll help you find at-risk opportunities in Salesforce and attempt to update their close dates. Let me first search for opportunities that are currently at deal risk.`;
+    }
     return `I'll help you find at-risk opportunities in Salesforce and update their close dates. Let me first search for opportunities that are currently at deal risk.`;
   }
   
@@ -271,14 +282,26 @@ export function generateMockThoughtProcess(query: string, services: string[]): T
       }
     ];
   } else if (isSalesforceAtRisk) {
-    progressUpdates = [
-      {
-        id: 'progress-0',
-        message: 'I found 3 opportunities at deal risk: "Green and Sons - Enterprise Deal" ($124,432), "Acme Corp Expansion" ($89,500), and "TechFlow Solutions" ($156,200). Now I\'ll update all their close dates to next month to give more time for deal closure.',
-        toolIndex: 0,
-        timestamp: new Date()
-      }
-    ];
+    const hasAccessError = queryLower.includes('access');
+    if (hasAccessError) {
+      progressUpdates = [
+        {
+          id: 'progress-0',
+          message: 'I found 3 opportunities at deal risk: "Green and Sons - Enterprise Deal" ($124,432), "Acme Corp Expansion" ($89,500), and "TechFlow Solutions" ($156,200). Now I\'ll attempt to update their close dates to next month.',
+          toolIndex: 0,
+          timestamp: new Date()
+        }
+      ];
+    } else {
+      progressUpdates = [
+        {
+          id: 'progress-0',
+          message: 'I found 3 opportunities at deal risk: "Green and Sons - Enterprise Deal" ($124,432), "Acme Corp Expansion" ($89,500), and "TechFlow Solutions" ($156,200). Now I\'ll update all their close dates to next month to give more time for deal closure.',
+          toolIndex: 0,
+          timestamp: new Date()
+        }
+      ];
+    }
   }
   
   return {
