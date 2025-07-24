@@ -16,9 +16,44 @@ Access the prototype at: https://venn-ai-sidebar-lukelin101.replit.app/
 3. Type your query and press Enter or click Send
 4. Watch as the AI processes your request, showing its thought process and tool invocations
 
-### Query Types to Try
+### Demo Use Cases
 
-#### 1. Regular Query
+#### 1. Notion PRD Update Workflow
+Test a three-step document update workflow in Notion:
+```
+update the Venn PRD in Notion
+```
+This demonstrates:
+- Document search in Notion workspace
+- Content retrieval and analysis
+- Page update with progress tracking
+- Notion-branded tool invocation cards
+
+#### 2. Salesforce At-Risk Opportunities (Success)
+Test opportunity management workflow in Salesforce:
+```
+Find all my salesforce opportunities that are at deal risk and update their opportunity close dates to next month
+```
+This demonstrates:
+- Salesforce opportunity search with risk assessment
+- Batch update operations
+- Progress updates between tool calls
+- Salesforce-branded tool cards with opportunity data
+
+#### 3. Salesforce At-Risk Opportunities (Access Error)
+Test permission error handling in Salesforce:
+```
+Find all my access salesforce opportunities that are at deal risk and update their opportunity close dates to next month
+```
+This demonstrates:
+- Successful search followed by permission denial
+- Access error card with role information
+- Admin contact guidance
+- Proper error state handling
+
+### Additional Query Types
+
+#### 4. Regular Query
 Try a standard search query to see normal functionality:
 ```
 Tell me about green and sons on salesforce and notion
@@ -28,36 +63,25 @@ This will demonstrate:
 - Multiple tool invocations (Salesforce and Notion searches)
 - Results synthesis and presentation
 
-#### 2. Access Error Query
-Test error handling for access permissions:
+#### 5. General Error Scenarios
+Test various error handling patterns:
 ```
 tell me about green and sons access
-```
-This triggers an access error scenario to show how the system handles permission issues.
-
-#### 3. Standard Error Query
-Test general error handling:
-```
 tell me about green and sons error
-```
-This demonstrates how the system gracefully handles and displays error conditions.
-
-#### 4. Platform Access Constraint Query
-Test platform-level access restrictions:
-```
 tell me about green and sons gateblock
 ```
-This triggers a platform access constraint error, showing how the system handles cases where Venn AI itself is not authorized to access certain enterprise services due to security policies.
+These trigger different error types: access permissions, general errors, and platform constraints.
 
 ### What You'll See
-- **Thought Process**: Real-time display of AI reasoning steps
-- **Tool Invocations**: Visual representation of searches across different platforms
-- **Loading States**: Animated indicators showing active processing
-- **Results**: Synthesized information from multiple sources
-- **Error Handling**: Graceful degradation when issues occur, including:
-  - Access permission errors (user-level restrictions)
+- **Multi-Step Workflows**: Complete task sequences with progress updates between each step
+- **Service-Branded Tool Cards**: Visual tool invocations with proper branding (Notion, Salesforce)
+- **Progress Communication**: Real-time updates showing what was found and next actions
+- **Document Results**: Specific file names, amounts, and data from tool operations
+- **Error Handling**: Comprehensive error scenarios including:
+  - Access permission errors with role information and admin guidance
   - Connection/runtime errors (service unavailable)
   - Platform access constraints (system-level restrictions)
+- **Dynamic Responses**: Context-aware final summaries based on successful operations or encountered errors
 
 ### Technical Features
 - React + TypeScript frontend
