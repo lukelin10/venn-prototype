@@ -1,4 +1,4 @@
-import { ThoughtProcess, ToolInvocation, ReasoningStep } from "@/types/thought-process";
+import { ThoughtProcess, ToolInvocation } from "@/types/thought-process";
 
 const mockToolData = {
   salesforce: {
@@ -83,35 +83,7 @@ const mockToolData = {
   }
 };
 
-const reasoningTemplates = [
-  {
-    title: "Data Analysis and Cross-referencing",
-    steps: [
-      { title: "Identify key data points", description: "Extract relevant information from each data source" },
-      { title: "Cross-reference findings", description: "Compare data across different platforms for consistency" },
-      { title: "Prioritize insights", description: "Determine the most actionable information" },
-      { title: "Synthesize conclusions", description: "Combine findings into coherent recommendations" }
-    ]
-  },
-  {
-    title: "Customer Relationship Analysis",
-    steps: [
-      { title: "Gather communication history", description: "Compile all touchpoints with the customer" },
-      { title: "Analyze engagement patterns", description: "Identify trends in customer interactions" },
-      { title: "Assess relationship health", description: "Evaluate the strength of business relationship" },
-      { title: "Generate next steps", description: "Recommend actions to improve customer success" }
-    ]
-  },
-  {
-    title: "Opportunity Assessment",
-    steps: [
-      { title: "Review deal progression", description: "Analyze current stage and probability" },
-      { title: "Identify risk factors", description: "Assess potential blockers or challenges" },
-      { title: "Evaluate resources needed", description: "Determine team involvement and timeline" },
-      { title: "Formulate strategy", description: "Create action plan for deal advancement" }
-    ]
-  }
-];
+
 
 function getRandomItem<T>(array: T[]): T {
   return array[Math.floor(Math.random() * array.length)];
@@ -196,19 +168,7 @@ function generateMockToolInvocations(services: string[], query: string): ToolInv
   }).filter(Boolean) as ToolInvocation[];
 }
 
-function generateMockReasoningSteps(): { title: string; steps: ReasoningStep[] } {
-  const template = getRandomItem(reasoningTemplates);
-  
-  return {
-    title: template.title,
-    steps: template.steps.map((step, index) => ({
-      id: `step-${index}`,
-      title: step.title,
-      description: step.description,
-      order: index + 1
-    }))
-  };
-}
+
 
 function generateQueryReasoning(query: string): string {
   const queryLower = query.toLowerCase();
@@ -237,7 +197,6 @@ function generateQueryReasoning(query: string): string {
 }
 
 export function generateMockThoughtProcess(query: string, services: string[]): ThoughtProcess {
-  const reasoning = generateMockReasoningSteps();
   const queryLower = query.toLowerCase();
   const isNotionPRDUpdate = queryLower.includes('update') && queryLower.includes('prd') && queryLower.includes('notion');
   
@@ -262,12 +221,6 @@ export function generateMockThoughtProcess(query: string, services: string[]): T
     queryReasoning: generateQueryReasoning(query),
     toolInvocations: generateMockToolInvocations(services, query),
     progressUpdates,
-    finalReasoning: {
-      title: reasoning.title,
-      steps: reasoning.steps,
-      isExpanded: true,
-      status: 'pending'
-    },
     finalResponse: '', // Will be populated later
     status: 'initializing'
   };

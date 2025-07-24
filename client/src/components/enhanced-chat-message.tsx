@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { EnhancedMessage } from "@/types/thought-process";
 import ToolInvocationCard from "./tool-invocation-card";
-import FinalReasoningCard from "./final-reasoning-card";
 import { generateMockResponse } from "@/lib/mock-responses";
 
 interface EnhancedChatMessageProps {
@@ -67,27 +66,6 @@ export default function EnhancedChatMessage({ message }: EnhancedChatMessageProp
           }
         }
         
-        // Start final reasoning
-        await new Promise(resolve => setTimeout(resolve, 1000));
-        setThoughtProcess(prev => prev ? {
-          ...prev,
-          status: 'final-reasoning' as const,
-          finalReasoning: {
-            ...prev.finalReasoning,
-            status: 'loading' as const
-          }
-        } : undefined);
-        
-        // Complete final reasoning
-        await new Promise(resolve => setTimeout(resolve, 2500));
-        setThoughtProcess(prev => prev ? {
-          ...prev,
-          finalReasoning: {
-            ...prev.finalReasoning,
-            status: 'completed' as const
-          }
-        } : undefined);
-        
         // Generate final response and complete
         await new Promise(resolve => setTimeout(resolve, 1000));
         const mockResponse = generateMockResponse(message.content, message.services || []);
@@ -127,18 +105,7 @@ export default function EnhancedChatMessage({ message }: EnhancedChatMessageProp
     });
   };
 
-  const handleToggleFinalReasoning = () => {
-    setThoughtProcess(prev => {
-      if (!prev) return undefined;
-      return {
-        ...prev,
-        finalReasoning: {
-          ...prev.finalReasoning,
-          isExpanded: !prev.finalReasoning.isExpanded
-        }
-      };
-    });
-  };
+
 
   if (message.role === "user") {
     return (
@@ -199,19 +166,6 @@ export default function EnhancedChatMessage({ message }: EnhancedChatMessageProp
           })}
         </div>
       )}
-
-      {/* Final Reasoning Card */}
-      {thoughtProcess.status === 'final-reasoning' || thoughtProcess.status === 'completed' ? (
-        <div className="animate-slide-in-from-left">
-          <FinalReasoningCard
-            title={thoughtProcess.finalReasoning.title}
-            steps={thoughtProcess.finalReasoning.steps}
-            status={thoughtProcess.finalReasoning.status}
-            isExpanded={thoughtProcess.finalReasoning.isExpanded}
-            onToggleExpanded={handleToggleFinalReasoning}
-          />
-        </div>
-      ) : null}
 
       {/* Final Response */}
       {thoughtProcess.status === 'completed' && thoughtProcess.finalResponse && (

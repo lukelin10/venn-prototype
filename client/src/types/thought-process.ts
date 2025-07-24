@@ -14,12 +14,7 @@ export interface ToolInvocation {
   };
 }
 
-export interface ReasoningStep {
-  id: string;
-  title: string;
-  description: string;
-  order: number;
-}
+
 
 export interface ProgressUpdate {
   id: string;
@@ -33,14 +28,8 @@ export interface ThoughtProcess {
   queryReasoning: string;
   toolInvocations: ToolInvocation[];
   progressUpdates?: ProgressUpdate[]; // Updates shown between tool calls
-  finalReasoning: {
-    title: string;
-    steps: ReasoningStep[];
-    isExpanded: boolean;
-    status: 'pending' | 'loading' | 'completed';
-  };
   finalResponse: string;
-  status: 'initializing' | 'reasoning' | 'invoking-tools' | 'final-reasoning' | 'completed';
+  status: 'initializing' | 'reasoning' | 'invoking-tools' | 'completed';
 }
 
 export interface EnhancedMessage {
