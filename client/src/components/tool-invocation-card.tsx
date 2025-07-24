@@ -16,6 +16,10 @@ const serviceIcons = {
   notion: { icon: SiNotion, color: "text-slate-800", name: "Notion" },
   gdrive: { icon: SiGoogledrive, color: "text-yellow-500", name: "Google Drive" },
   gmail: { icon: SiGmail, color: "text-red-500", name: "Gmail" },
+  // Notion-specific tool actions
+  search: { icon: SiNotion, color: "text-slate-800", name: "Notion" },
+  fetch: { icon: SiNotion, color: "text-slate-800", name: "Notion" },
+  "update-page": { icon: SiNotion, color: "text-slate-800", name: "Notion" },
 };
 
 // Mock result data for different services
@@ -48,6 +52,18 @@ const mockResults: Record<string, MockResult[]> = {
     { title: "Green and Sons - Deal Notes", type: "PAGE" },
     { title: "Customer Success Framework", type: "PAGE" },
     { title: "Sales Process Documentation", type: "PAGE" }
+  ],
+  // Notion PRD update sequence results
+  search: [
+    { title: "Venn Core Documents", subtitle: "https://www.notion.so/1eac7fe2e0b807281b2e389919a52b3", type: "page" },
+    { title: "Venn PRD 2.0", subtitle: "Document contains product requirements", type: "page" },
+    { title: "Venn Architecture Overview", subtitle: "Technical documentation", type: "page" }
+  ],
+  fetch: [
+    { title: "Venn PRD 2.0 Content Retrieved", subtitle: "Document loaded successfully", type: "document" }
+  ],
+  "update-page": [
+    { title: "Venn PRD 2.0 Updated", subtitle: "Added collaboration note to Version V2 section", type: "page" }
   ]
 };
 

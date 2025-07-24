@@ -58,6 +58,12 @@ export default function EnhancedChatMessage({ message }: EnhancedChatMessageProp
               };
               return updated;
             });
+            
+            // Show progress update after tool completion (if it exists)
+            if (thoughtProcess.progressUpdates && i < thoughtProcess.progressUpdates.length) {
+              await new Promise(resolve => setTimeout(resolve, 800));
+              // Progress updates are shown in the UI rendering, no state change needed
+            }
           }
         }
         
@@ -85,9 +91,17 @@ export default function EnhancedChatMessage({ message }: EnhancedChatMessageProp
         // Generate final response and complete
         await new Promise(resolve => setTimeout(resolve, 1000));
         const mockResponse = generateMockResponse(message.content, message.services || []);
-        const finalResponseText = mockResponse.type === 'salesforce-opportunity' 
-          ? "Based on my analysis of your Salesforce data and related communications, I found comprehensive information about the Green and Sons opportunity. The deal is progressing well in the Proposal/Price Quote stage with a value of $124,432 and a close date of June 14, 2025. Recent Gong insights show positive engagement from the CFO, though they're requesting a 5% discount for a multi-year commitment. I recommend scheduling the proposal review call by May 24 to maintain momentum."
-          : "Based on my analysis across your selected enterprise data sources, I've compiled the relevant information and insights to help you with your query. The data shows consistent patterns and actionable next steps.";
+        
+        // Check if this is the Notion PRD update flow
+        const isNotionPRDUpdate = message.content.toLowerCase().includes('update') && 
+                                  message.content.toLowerCase().includes('prd') && 
+                                  message.content.toLowerCase().includes('notion');
+        
+        const finalResponseText = isNotionPRDUpdate
+          ? "Perfect! I've successfully updated the Venn PRD 2.0 in Notion with \"Moda Labs is helping!\" The update has been added to the Version V2 section where Moda Labs is already mentioned. The addition appears right at the beginning of that section to emphasize Moda Labs' involvement in delivering the killer demo app features. The update maintains the document's structure while highlighting the collaborative effort with Moda Labs."
+          : mockResponse.type === 'salesforce-opportunity' 
+            ? "Based on my analysis of your Salesforce data and related communications, I found comprehensive information about the Green and Sons opportunity. The deal is progressing well in the Proposal/Price Quote stage with a value of $124,432 and a close date of June 14, 2025. Recent Gong insights show positive engagement from the CFO, though they're requesting a 5% discount for a multi-year commitment. I recommend scheduling the proposal review call by May 24 to maintain momentum."
+            : "Based on my analysis across your selected enterprise data sources, I've compiled the relevant information and insights to help you with your query. The data shows consistent patterns and actionable next steps.";
         
         setThoughtProcess(prev => prev ? {
           ...prev,
@@ -154,17 +168,35 @@ export default function EnhancedChatMessage({ message }: EnhancedChatMessageProp
         </div>
       )}
 
-      {/* Tool Invocation Cards */}
+      {/* Tool Invocation Cards with Progress Updates */}
       {thoughtProcess.status !== 'initializing' && thoughtProcess.status !== 'reasoning' && (
         <div className="space-y-3">
-          {thoughtProcess.toolInvocations.map((tool) => (
-            <div key={tool.id} className="animate-slide-in-from-left">
-              <ToolInvocationCard
-                toolInvocation={tool}
-                onToggleExpanded={() => handleToggleToolInvocation(tool.id)}
-              />
-            </div>
-          ))}
+          {thoughtProcess.toolInvocations.map((tool, index) => {
+            const progressUpdate = thoughtProcess.progressUpdates?.find(
+              update => update.toolIndex === index && 
+              thoughtProcess.toolInvocations[index].status === 'completed'
+            );
+            
+            return (
+              <div key={tool.id}>
+                <div className="animate-slide-in-from-left">
+                  <ToolInvocationCard
+                    toolInvocation={tool}
+                    onToggleExpanded={() => handleToggleToolInvocation(tool.id)}
+                  />
+                </div>
+                
+                {/* Show progress update after this tool completes */}
+                {progressUpdate && (
+                  <div className="mt-3 animate-fade-in">
+                    <div className="text-sm text-slate-700 leading-relaxed bg-slate-50 p-3 rounded-lg border-l-4 border-slate-300">
+                      {progressUpdate.message}
+                    </div>
+                  </div>
+                )}
+              </div>
+            );
+          })}
         </div>
       )}
 

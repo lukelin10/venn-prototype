@@ -27,6 +27,34 @@ const mockToolData = {
     ],
     resultCounts: [3, 7, 4, 2, 6]
   },
+  // Special tools for Notion PRD update flow
+  search: {
+    descriptions: [
+      "Searched for Venn PRD in Notion workspace"
+    ],
+    parameters: [
+      "query: \"Venn PRD\", query_type: \"internal\""
+    ],
+    resultCounts: [3]
+  },
+  fetch: {
+    descriptions: [
+      "Fetched Venn PRD 2.0 document content"
+    ],
+    parameters: [
+      "document_id: \"abc123\", include_content: true"
+    ],
+    resultCounts: [1]
+  },
+  "update-page": {
+    descriptions: [
+      "Updated Venn PRD 2.0 with collaboration details"
+    ],
+    parameters: [
+      "page_id: \"abc123\", section: \"Version V2\", content: \"Moda Labs is helping!\""
+    ],
+    resultCounts: [1]
+  },
   gdrive: {
     descriptions: [
       "Searched files in Google Drive",
@@ -89,10 +117,49 @@ function getRandomItem<T>(array: T[]): T {
   return array[Math.floor(Math.random() * array.length)];
 }
 
+function generateNotionPRDUpdateSequence(): ToolInvocation[] {
+  return [
+    {
+      id: 'tool-0',
+      toolName: 'search',
+      description: 'Searched for Venn PRD in Notion workspace',
+      parameters: 'query: "Venn PRD", query_type: "internal"',
+      resultCount: 3,
+      status: 'pending' as const,
+      isExpanded: true
+    },
+    {
+      id: 'tool-1',
+      toolName: 'fetch',
+      description: 'Fetched Venn PRD 2.0 document content',
+      parameters: 'document_id: "abc123", include_content: true',
+      resultCount: 1,
+      status: 'pending' as const,
+      isExpanded: true
+    },
+    {
+      id: 'tool-2',
+      toolName: 'update-page',
+      description: 'Updated Venn PRD 2.0 with collaboration details',
+      parameters: 'page_id: "abc123", section: "Version V2", content: "Moda Labs is helping!"',
+      resultCount: 1,
+      status: 'pending' as const,
+      isExpanded: true
+    }
+  ];
+}
+
 function generateMockToolInvocations(services: string[], query: string): ToolInvocation[] {
-  const hasRuntimeError = query.toLowerCase().includes('error');
-  const hasAccessError = query.toLowerCase().includes('access');
-  const hasPlatformError = query.toLowerCase().includes('gateblock');
+  const queryLower = query.toLowerCase();
+  
+  // Check for Notion PRD update scenario
+  if (queryLower.includes('update') && queryLower.includes('prd') && queryLower.includes('notion')) {
+    return generateNotionPRDUpdateSequence();
+  }
+  
+  const hasRuntimeError = queryLower.includes('error');
+  const hasAccessError = queryLower.includes('access');
+  const hasPlatformError = queryLower.includes('gateblock');
   
   return services.map((service, index) => {
     const serviceData = mockToolData[service as keyof typeof mockToolData];
@@ -146,6 +213,10 @@ function generateMockReasoningSteps(): { title: string; steps: ReasoningStep[] }
 function generateQueryReasoning(query: string): string {
   const queryLower = query.toLowerCase();
   
+  if (queryLower.includes('update') && queryLower.includes('prd') && queryLower.includes('notion')) {
+    return `I'll help you update the Venn PRD in Notion. Let me first search for the document to locate it.`;
+  }
+  
   if (queryLower.includes('opportunity') || queryLower.includes('deal')) {
     return `You want to analyze sales opportunities and deal progression. I'll search across your CRM, emails, and documents to provide comprehensive deal insights.`;
   }
@@ -167,11 +238,30 @@ function generateQueryReasoning(query: string): string {
 
 export function generateMockThoughtProcess(query: string, services: string[]): ThoughtProcess {
   const reasoning = generateMockReasoningSteps();
+  const queryLower = query.toLowerCase();
+  const isNotionPRDUpdate = queryLower.includes('update') && queryLower.includes('prd') && queryLower.includes('notion');
+  
+  // Generate progress updates for Notion PRD flow
+  const progressUpdates = isNotionPRDUpdate ? [
+    {
+      id: 'progress-0',
+      message: 'I found several Venn PRD documents. The most recent one appears to be "Venn PRD 2.0". Let me fetch it to see the current content and then update it with "Moda Labs is helping!"',
+      toolIndex: 0,
+      timestamp: new Date()
+    },
+    {
+      id: 'progress-1', 
+      message: 'Now I\'ll update the Venn PRD 2.0 document by adding "Moda Labs is helping!" in an appropriate location. I\'ll add it to the Version V2 section where Moda Labs is already mentioned.',
+      toolIndex: 1,
+      timestamp: new Date()
+    }
+  ] : undefined;
   
   return {
     id: `thought-${Date.now()}`,
     queryReasoning: generateQueryReasoning(query),
     toolInvocations: generateMockToolInvocations(services, query),
+    progressUpdates,
     finalReasoning: {
       title: reasoning.title,
       steps: reasoning.steps,

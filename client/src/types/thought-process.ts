@@ -21,10 +21,18 @@ export interface ReasoningStep {
   order: number;
 }
 
+export interface ProgressUpdate {
+  id: string;
+  message: string;
+  toolIndex: number; // Which tool this update refers to
+  timestamp: Date;
+}
+
 export interface ThoughtProcess {
   id: string;
   queryReasoning: string;
   toolInvocations: ToolInvocation[];
+  progressUpdates?: ProgressUpdate[]; // Updates shown between tool calls
   finalReasoning: {
     title: string;
     steps: ReasoningStep[];
