@@ -55,6 +55,25 @@ const mockToolData = {
     ],
     resultCounts: [1]
   },
+  // Special tools for Salesforce at-risk opportunities flow
+  "salesforce-search": {
+    descriptions: [
+      "Searched for at-risk opportunities in Salesforce"
+    ],
+    parameters: [
+      "stage: all, risk_level: high, status: active"
+    ],
+    resultCounts: [3]
+  },
+  "salesforce-update": {
+    descriptions: [
+      "Updated opportunity close dates to next month"
+    ],
+    parameters: [
+      "opportunities: 3 records, close_date: next_month"
+    ],
+    resultCounts: [3]
+  },
   gdrive: {
     descriptions: [
       "Searched files in Google Drive",
@@ -121,12 +140,40 @@ function generateNotionPRDUpdateSequence(): ToolInvocation[] {
   ];
 }
 
+function generateSalesforceAtRiskSequence(): ToolInvocation[] {
+  return [
+    {
+      id: 'tool-0',
+      toolName: 'salesforce-search',
+      description: 'Searched for at-risk opportunities in Salesforce',
+      parameters: 'stage: all, risk_level: high, status: active',
+      resultCount: 3,
+      status: 'pending' as const,
+      isExpanded: true
+    },
+    {
+      id: 'tool-1',
+      toolName: 'salesforce-update',
+      description: 'Updated opportunity close dates to next month',
+      parameters: 'opportunities: 3 records, close_date: next_month',
+      resultCount: 3,
+      status: 'pending' as const,
+      isExpanded: true
+    }
+  ];
+}
+
 function generateMockToolInvocations(services: string[], query: string): ToolInvocation[] {
   const queryLower = query.toLowerCase();
   
   // Check for Notion PRD update scenario
   if (queryLower.includes('update') && queryLower.includes('prd') && queryLower.includes('notion')) {
     return generateNotionPRDUpdateSequence();
+  }
+  
+  // Check for Salesforce at-risk opportunities scenario
+  if (queryLower.includes('salesforce') && queryLower.includes('risk') && queryLower.includes('update')) {
+    return generateSalesforceAtRiskSequence();
   }
   
   const hasRuntimeError = queryLower.includes('error');
@@ -177,6 +224,10 @@ function generateQueryReasoning(query: string): string {
     return `I'll help you update the Venn PRD in Notion. Let me first search for the document to locate it.`;
   }
   
+  if (queryLower.includes('salesforce') && queryLower.includes('risk') && queryLower.includes('update')) {
+    return `I'll help you find at-risk opportunities in Salesforce and update their close dates. Let me first search for opportunities that are currently at deal risk.`;
+  }
+  
   if (queryLower.includes('opportunity') || queryLower.includes('deal')) {
     return `You want to analyze sales opportunities and deal progression. I'll search across your CRM, emails, and documents to provide comprehensive deal insights.`;
   }
@@ -199,22 +250,36 @@ function generateQueryReasoning(query: string): string {
 export function generateMockThoughtProcess(query: string, services: string[]): ThoughtProcess {
   const queryLower = query.toLowerCase();
   const isNotionPRDUpdate = queryLower.includes('update') && queryLower.includes('prd') && queryLower.includes('notion');
+  const isSalesforceAtRisk = queryLower.includes('salesforce') && queryLower.includes('risk') && queryLower.includes('update');
   
-  // Generate progress updates for Notion PRD flow
-  const progressUpdates = isNotionPRDUpdate ? [
-    {
-      id: 'progress-0',
-      message: 'I found several Venn PRD documents. The most recent one appears to be "Venn PRD 2.0". Let me fetch it to see the current content and then update it with "Moda Labs is helping!"',
-      toolIndex: 0,
-      timestamp: new Date()
-    },
-    {
-      id: 'progress-1', 
-      message: 'Now I\'ll update the Venn PRD 2.0 document by adding "Moda Labs is helping!" in an appropriate location. I\'ll add it to the Version V2 section where Moda Labs is already mentioned.',
-      toolIndex: 1,
-      timestamp: new Date()
-    }
-  ] : undefined;
+  // Generate progress updates for different flows
+  let progressUpdates = undefined;
+  
+  if (isNotionPRDUpdate) {
+    progressUpdates = [
+      {
+        id: 'progress-0',
+        message: 'I found several Venn PRD documents. The most recent one appears to be "Venn PRD 2.0". Let me fetch it to see the current content and then update it with "Moda Labs is helping!"',
+        toolIndex: 0,
+        timestamp: new Date()
+      },
+      {
+        id: 'progress-1', 
+        message: 'Now I\'ll update the Venn PRD 2.0 document by adding "Moda Labs is helping!" in an appropriate location. I\'ll add it to the Version V2 section where Moda Labs is already mentioned.',
+        toolIndex: 1,
+        timestamp: new Date()
+      }
+    ];
+  } else if (isSalesforceAtRisk) {
+    progressUpdates = [
+      {
+        id: 'progress-0',
+        message: 'I found 3 opportunities at deal risk: "Green and Sons - Enterprise Deal" ($124,432), "Acme Corp Expansion" ($89,500), and "TechFlow Solutions" ($156,200). Now I\'ll update all their close dates to next month to give more time for deal closure.',
+        toolIndex: 0,
+        timestamp: new Date()
+      }
+    ];
+  }
   
   return {
     id: `thought-${Date.now()}`,

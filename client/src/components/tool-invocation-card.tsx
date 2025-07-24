@@ -20,6 +20,9 @@ const serviceIcons = {
   search: { icon: SiNotion, color: "text-slate-800", name: "Notion" },
   fetch: { icon: SiNotion, color: "text-slate-800", name: "Notion" },
   "update-page": { icon: SiNotion, color: "text-slate-800", name: "Notion" },
+  // Salesforce-specific tool actions
+  "salesforce-search": { icon: SiSalesforce, color: "text-blue-500", name: "Salesforce" },
+  "salesforce-update": { icon: SiSalesforce, color: "text-blue-500", name: "Salesforce" },
 };
 
 // Mock result data for different services
@@ -64,6 +67,17 @@ const mockResults: Record<string, MockResult[]> = {
   ],
   "update-page": [
     { title: "Venn PRD 2.0 Updated", subtitle: "Added collaboration note to Version V2 section", type: "page" }
+  ],
+  // Salesforce at-risk opportunities sequence results
+  "salesforce-search": [
+    { title: "Green and Sons - Enterprise Deal", subtitle: "Deal Risk: High", type: "OPPORTUNITY", amount: "$124,432" },
+    { title: "Acme Corp Expansion", subtitle: "Deal Risk: High", type: "OPPORTUNITY", amount: "$89,500" },
+    { title: "TechFlow Solutions", subtitle: "Deal Risk: High", type: "OPPORTUNITY", amount: "$156,200" }
+  ],
+  "salesforce-update": [
+    { title: "Green and Sons - Enterprise Deal", subtitle: "Close date updated to next month", type: "OPPORTUNITY" },
+    { title: "Acme Corp Expansion", subtitle: "Close date updated to next month", type: "OPPORTUNITY" },
+    { title: "TechFlow Solutions", subtitle: "Close date updated to next month", type: "OPPORTUNITY" }
   ]
 };
 

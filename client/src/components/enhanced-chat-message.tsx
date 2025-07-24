@@ -70,16 +70,22 @@ export default function EnhancedChatMessage({ message }: EnhancedChatMessageProp
         await new Promise(resolve => setTimeout(resolve, 1000));
         const mockResponse = generateMockResponse(message.content, message.services || []);
         
-        // Check if this is the Notion PRD update flow
-        const isNotionPRDUpdate = message.content.toLowerCase().includes('update') && 
-                                  message.content.toLowerCase().includes('prd') && 
-                                  message.content.toLowerCase().includes('notion');
+        // Check for specific flow types
+        const queryLower = message.content.toLowerCase();
+        const isNotionPRDUpdate = queryLower.includes('update') && queryLower.includes('prd') && queryLower.includes('notion');
+        const isSalesforceAtRisk = queryLower.includes('salesforce') && queryLower.includes('risk') && queryLower.includes('update');
         
-        const finalResponseText = isNotionPRDUpdate
-          ? "Perfect! I've successfully updated the Venn PRD 2.0 in Notion with \"Moda Labs is helping!\" The update has been added to the Version V2 section where Moda Labs is already mentioned. The addition appears right at the beginning of that section to emphasize Moda Labs' involvement in delivering the killer demo app features. The update maintains the document's structure while highlighting the collaborative effort with Moda Labs."
-          : mockResponse.type === 'salesforce-opportunity' 
-            ? "Based on my analysis of your Salesforce data and related communications, I found comprehensive information about the Green and Sons opportunity. The deal is progressing well in the Proposal/Price Quote stage with a value of $124,432 and a close date of June 14, 2025. Recent Gong insights show positive engagement from the CFO, though they're requesting a 5% discount for a multi-year commitment. I recommend scheduling the proposal review call by May 24 to maintain momentum."
-            : "Based on my analysis across your selected enterprise data sources, I've compiled the relevant information and insights to help you with your query. The data shows consistent patterns and actionable next steps.";
+        let finalResponseText = "";
+        
+        if (isNotionPRDUpdate) {
+          finalResponseText = "Perfect! I've successfully updated the Venn PRD 2.0 in Notion with \"Moda Labs is helping!\" The update has been added to the Version V2 section where Moda Labs is already mentioned. The addition appears right at the beginning of that section to emphasize Moda Labs' involvement in delivering the killer demo app features. The update maintains the document's structure while highlighting the collaborative effort with Moda Labs.";
+        } else if (isSalesforceAtRisk) {
+          finalResponseText = "Successfully updated all 3 at-risk opportunities in Salesforce! I've extended the close dates for Green and Sons - Enterprise Deal ($124,432), Acme Corp Expansion ($89,500), and TechFlow Solutions ($156,200) to next month. This gives your sales team additional time to address the risk factors and work toward successful deal closure. The updated close dates should help reduce pressure and allow for more strategic deal management.";
+        } else if (mockResponse.type === 'salesforce-opportunity') {
+          finalResponseText = "Based on my analysis of your Salesforce data and related communications, I found comprehensive information about the Green and Sons opportunity. The deal is progressing well in the Proposal/Price Quote stage with a value of $124,432 and a close date of June 14, 2025. Recent Gong insights show positive engagement from the CFO, though they're requesting a 5% discount for a multi-year commitment. I recommend scheduling the proposal review call by May 24 to maintain momentum.";
+        } else {
+          finalResponseText = "Based on my analysis across your selected enterprise data sources, I've compiled the relevant information and insights to help you with your query. The data shows consistent patterns and actionable next steps.";
+        }
         
         setThoughtProcess(prev => prev ? {
           ...prev,
