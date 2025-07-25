@@ -78,7 +78,7 @@ export default function ChatInterface() {
   return (
     <div className="flex flex-col h-screen">
       {/* Header */}
-      <div className="flex items-center justify-between p-6 border-b border-gray-200 bg-white">
+      <div className="flex items-center justify-between px-0.5 py-6 border-b border-gray-200 bg-white">
         <VennLogo size="md" />
         <div className="flex items-center space-x-2">
           <Button variant="ghost" size="sm" className="p-1.5 h-auto hover-lift">
@@ -124,7 +124,7 @@ export default function ChatInterface() {
       </div>
 
       {/* Chat Input */}
-      <div className="border-t border-gray-200 p-6 bg-white">
+      <div className="border-t border-gray-200 px-0.5 py-6 bg-white">
         <div className="flex items-end space-x-4">
           <div className="flex-1 min-h-[44px] max-h-32">
             <Textarea

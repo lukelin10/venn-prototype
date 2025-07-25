@@ -36,7 +36,7 @@ const services = [
 
 export default function ServiceSelector({ selectedServices, onServiceToggle }: ServiceSelectorProps) {
   return (
-    <div className="px-6 py-4 border-b border-gray-200 bg-gray-50">
+    <div className="px-0.5 py-4 border-b border-gray-200 bg-gray-50">
       <p className="text-label mb-3">Select services:</p>
       <div className="grid grid-cols-4 gap-3 md:flex md:space-x-3 md:grid-cols-none">
         {services.map((service) => {
