@@ -45,7 +45,8 @@ Interface simplicity: Remove unnecessary complexity from prototype (removed fina
 
 ### UI Components
 - **Design System**: shadcn/ui components with custom Venn AI branding
-- **Responsive Design**: Tailored for sidebar/extension layout (400px width)
+- **Responsive Design**: Tailored for sidebar/extension layout (384px width)
+- **Design Documentation**: Complete design system documented in `venn-ai-design-system-updated.md`
 - **Accessibility**: Proper ARIA labels and keyboard navigation
 
 ## Data Flow
@@ -129,3 +130,10 @@ The architecture prioritizes developer experience with hot reloading, type safet
 - Eliminated complex final reasoning/opportunity assessment cards
 - Streamlined thought process to focus on tool invocations and final responses
 - Removed unnecessary complexity from prototype while maintaining core functionality
+
+### January 2025 - Design System Documentation Update
+- Analyzed current prototype UX implementation and compared against original styleguide
+- Documented key implementation changes: sidebar-first design, 20% smaller spacing scale, progressive loading patterns
+- Created comprehensive updated design system (`venn-ai-design-system-updated.md`) reflecting production implementation
+- Key findings: Service icon active states use white background with shadow (not purple), tool cards maintain service branding within neutral containers
+- Documented enterprise UX patterns: progressive disclosure, auto-behaviors, service integration patterns
