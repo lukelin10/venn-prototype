@@ -105,7 +105,7 @@ export default function ChatInterface() {
       {/* Chat Messages */}
       <div 
         ref={chatContainerRef}
-        className="flex-1 overflow-y-auto px-2 py-6 space-y-6 chat-scroll bg-gray-50"
+        className="flex-1 overflow-y-auto py-6 space-y-6 chat-scroll bg-gray-50"
       >
         {messages.length === 0 && !isLoading && (
           <div className="flex items-center justify-center min-h-[400px]">

@@ -19,7 +19,7 @@ const serviceIcons = {
 
 export default function LoadingIndicator({ services }: LoadingIndicatorProps) {
   return (
-    <div className="space-y-4 animate-fade-in w-full">
+    <div className="space-y-4 animate-fade-in w-full px-0.5">
       <div className="flex items-start space-x-3 w-full">
         <div className="w-6 h-6 bg-purple-primary rounded-full flex items-center justify-center flex-shrink-0">
           <span className="text-white text-xs font-bold">V</span>
