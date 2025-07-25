@@ -135,7 +135,7 @@ export default function EnhancedChatMessage({ message }: EnhancedChatMessageProp
   }
 
   return (
-    <div className="space-y-4 animate-slide-up">
+    <div className="space-y-4 animate-slide-up px-24">
       {/* Query Reasoning */}
       {thoughtProcess.status !== 'initializing' && (
         <div className="animate-fade-in">
@@ -173,7 +173,7 @@ export default function EnhancedChatMessage({ message }: EnhancedChatMessageProp
                 {/* Show progress update after this tool completes */}
                 {progressUpdate && (
                   <div className="mt-4 animate-fade-in">
-                    <div className="text-body leading-relaxed bg-gray-50 p-3 rounded-lg border-l-4 border-purple-primary ml-9">
+                    <div className="text-body leading-relaxed bg-gray-50 p-3 rounded-lg border-l-4 border-purple-primary ml-9 mr-24">
                       {progressUpdate.message}
                     </div>
                   </div>
