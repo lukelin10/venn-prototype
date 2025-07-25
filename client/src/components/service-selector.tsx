@@ -16,21 +16,25 @@ const services = [
     id: "salesforce",
     name: "Salesforce",
     icon: SiSalesforce,
+    color: "text-blue-500",
   },
   {
     id: "notion", 
     name: "Notion",
     icon: SiNotion,
+    color: "text-slate-800",
   },
   {
     id: "gdrive",
     name: "Google Drive", 
     icon: SiGoogledrive,
+    color: "text-yellow-500",
   },
   {
     id: "gmail",
     name: "Gmail",
     icon: SiGmail,
+    color: "text-red-500",
   },
 ];
 
@@ -55,7 +59,7 @@ export default function ServiceSelector({ selectedServices, onServiceToggle }: S
             >
               <Icon 
                 className={`w-3 h-3 ${
-                  isSelected ? 'text-white' : 'text-gray-500'
+                  isSelected ? service.color : 'text-gray-500'
                 }`} 
               />
             </Button>

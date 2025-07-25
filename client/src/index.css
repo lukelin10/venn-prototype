@@ -240,9 +240,9 @@
   }
   
   .service-icon.active {
-    background: var(--purple-primary);
+    background: var(--white);
     border-color: var(--purple-primary);
-    color: var(--white);
+    box-shadow: 0 0 0 2px var(--purple-primary);
   }
   
   /* User chat bubble */
