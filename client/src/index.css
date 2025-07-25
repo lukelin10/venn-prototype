@@ -185,7 +185,7 @@
     background: var(--white);
     border: 1px solid var(--gray-200);
     border-radius: 0.75rem;
-    padding: var(--space-6);
+    padding: var(--space-3) var(--space-4);
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
     transition: all 0.2s ease;
   }
@@ -251,7 +251,8 @@
     color: var(--white);
     border-radius: 0.75rem;
     padding: var(--space-3) var(--space-4);
-    font-size: var(--text-sm);
+    font-size: var(--text-base);
+    line-height: 1.5;
     max-width: 80%;
     margin-left: auto;
   }
@@ -262,7 +263,8 @@
     color: var(--gray-800);
     border-radius: 0.75rem;
     padding: var(--space-3) var(--space-4);
-    font-size: var(--text-sm);
+    font-size: var(--text-base);
+    line-height: 1.5;
     max-width: 80%;
   }
   

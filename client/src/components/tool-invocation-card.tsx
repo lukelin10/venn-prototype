@@ -128,7 +128,7 @@ export default function ToolInvocationCard({
         toolInvocation.status === 'completed' && "border-gray-200",
         toolInvocation.status === 'error' && "border-red-300 shadow-sm"
       )}>
-        <div className="p-4">
+
         <Button
           variant="ghost"
           className="justify-start p-0 h-auto font-normal text-left hover:bg-transparent w-full"
@@ -165,10 +165,10 @@ export default function ToolInvocationCard({
         </Button>
         
         {toolInvocation.isExpanded && toolInvocation.status === 'completed' && !toolInvocation.error && (
-          <div className="mt-4 pt-4 border-t border-gray-200 animate-in slide-in-from-top-2 duration-200">
+          <div className="mt-3 pt-3 border-t border-gray-200 animate-in slide-in-from-top-2 duration-200">
             <div className="space-y-3">
               {results.slice(0, toolInvocation.resultCount).map((result, index) => (
-                <div key={index} className="flex items-center justify-between py-3 px-4 bg-gray-50 rounded-lg hover-scale">
+                <div key={index} className="flex items-center justify-between py-2 px-3 bg-gray-50 rounded-lg hover-scale">
                   <div className="flex-1">
                     <div className="text-body font-medium">
                       {result.title}
@@ -199,8 +199,8 @@ export default function ToolInvocationCard({
         )}
         
         {toolInvocation.isExpanded && toolInvocation.status === 'error' && toolInvocation.error && (
-          <div className="mt-4 pt-4 border-t border-red-200 animate-in slide-in-from-top-2 duration-200">
-            <div className="p-4 bg-red-50 rounded-lg border border-red-200">
+          <div className="mt-3 pt-3 border-t border-red-200 animate-in slide-in-from-top-2 duration-200">
+            <div className="p-3 bg-red-50 rounded-lg border border-red-200">
               <div className="flex items-start space-x-3">
                 <AlertTriangle className="w-3 h-3 text-red-500 flex-shrink-0 mt-0.5" />
                 <div className="flex-1">
@@ -222,7 +222,6 @@ export default function ToolInvocationCard({
             </div>
           </div>
         )}
-        </div>
       </Card>
     </div>
   );
