@@ -16,45 +16,33 @@ const services = [
     id: "salesforce",
     name: "Salesforce",
     icon: SiSalesforce,
-    activeColor: "bg-blue-100 hover:bg-blue-200",
-    iconColor: "text-blue-600",
-    inactiveColor: "bg-slate-200 hover:bg-slate-300",
-    inactiveIconColor: "text-slate-600",
+    iconColor: "text-blue-600", // Keep original service brand colors for icons
   },
   {
-    id: "notion",
+    id: "notion", 
     name: "Notion",
     icon: SiNotion,
-    activeColor: "bg-slate-100 hover:bg-slate-200",
     iconColor: "text-slate-800",
-    inactiveColor: "bg-slate-200 hover:bg-slate-300",
-    inactiveIconColor: "text-slate-600",
   },
   {
     id: "gdrive",
-    name: "Google Drive",
+    name: "Google Drive", 
     icon: SiGoogledrive,
-    activeColor: "bg-yellow-100 hover:bg-yellow-200",
     iconColor: "text-yellow-600",
-    inactiveColor: "bg-slate-200 hover:bg-slate-300",
-    inactiveIconColor: "text-slate-600",
   },
   {
     id: "gmail",
     name: "Gmail",
     icon: SiGmail,
-    activeColor: "bg-red-100 hover:bg-red-200",
     iconColor: "text-red-600",
-    inactiveColor: "bg-slate-200 hover:bg-slate-300",
-    inactiveIconColor: "text-slate-600",
   },
 ];
 
 export default function ServiceSelector({ selectedServices, onServiceToggle }: ServiceSelectorProps) {
   return (
-    <div className="px-4 py-3 border-b border-slate-100 bg-slate-50">
-      <p className="text-xs text-slate-600 mb-2">Select services:</p>
-      <div className="flex space-x-2">
+    <div className="px-6 py-4 border-b border-gray-200 bg-gray-50">
+      <p className="text-label mb-3">Select services:</p>
+      <div className="grid grid-cols-4 gap-3 md:flex md:space-x-3 md:grid-cols-none">
         {services.map((service) => {
           const isSelected = selectedServices.includes(service.id);
           const Icon = service.icon;
@@ -65,17 +53,13 @@ export default function ServiceSelector({ selectedServices, onServiceToggle }: S
               variant="ghost"
               size="sm"
               onClick={() => onServiceToggle(service.id)}
-              className={`w-8 h-8 p-0 transition-colors ${
-                isSelected 
-                  ? service.activeColor 
-                  : service.inactiveColor
+              className={`service-icon hover-lift active-scale ${
+                isSelected ? 'active' : ''
               }`}
             >
               <Icon 
                 className={`w-4 h-4 ${
-                  isSelected 
-                    ? service.iconColor 
-                    : service.inactiveIconColor
+                  isSelected ? 'text-white' : service.iconColor
                 }`} 
               />
             </Button>

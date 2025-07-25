@@ -102,9 +102,9 @@ export default function ToolInvocationCard({
   const getStatusIcon = () => {
     switch (toolInvocation.status) {
       case 'pending':
-        return <div className="w-4 h-4 rounded-full border-2 border-slate-300" />;
+        return <div className="w-4 h-4 rounded-full border-2 border-gray-300" />;
       case 'loading':
-        return <Loader2 className="w-4 h-4 animate-spin text-blue-500" />;
+        return <Loader2 className="w-4 h-4 animate-spin text-purple-primary" />;
       case 'completed':
         return null; // No status icon when completed, just the service icon
       case 'error':
@@ -120,14 +120,15 @@ export default function ToolInvocationCard({
   };
 
   return (
-    <Card className={cn(
-      "transition-all duration-300 ease-in-out",
-      toolInvocation.status === 'pending' && "opacity-60",
-      toolInvocation.status === 'loading' && "border-blue-200 shadow-sm",
-      toolInvocation.status === 'completed' && "border-slate-200",
-      toolInvocation.status === 'error' && "border-red-200 shadow-sm"
-    )}>
-      <div className="p-3">
+    <div className="ml-11"> {/* Align with other chat content */}
+      <Card className={cn(
+        "venn-card transition-all duration-300 ease-in-out",
+        toolInvocation.status === 'pending' && "opacity-60",
+        toolInvocation.status === 'loading' && "border-purple-light shadow-sm",
+        toolInvocation.status === 'completed' && "border-gray-200",
+        toolInvocation.status === 'error' && "border-red-300 shadow-sm"
+      )}>
+        <div className="p-4">
         <Button
           variant="ghost"
           className="justify-start p-0 h-auto font-normal text-left hover:bg-transparent w-full"
@@ -141,7 +142,7 @@ export default function ToolInvocationCard({
               ) : (
                 <div className="flex-shrink-0">{getStatusIcon()}</div>
               )}
-              <span className="text-sm font-normal text-slate-700 truncate">
+              <span className="text-body truncate">
                 {toolInvocation.description}
               </span>
             </div>
@@ -150,45 +151,45 @@ export default function ToolInvocationCard({
               {toolInvocation.status === 'error' ? (
                 <AlertTriangle className="w-4 h-4 text-red-500" />
               ) : toolInvocation.status === 'completed' && (
-                <span className="text-sm text-slate-500 whitespace-nowrap">
+                <span className="text-label whitespace-nowrap">
                   {getResultText()}
                 </span>
               )}
               {toolInvocation.status !== 'pending' && (
                 toolInvocation.isExpanded ? 
-                  <ChevronDown className="w-4 h-4 text-slate-400" /> : 
-                  <ChevronRight className="w-4 h-4 text-slate-400" />
+                  <ChevronDown className="w-4 h-4 text-gray-400" /> : 
+                  <ChevronRight className="w-4 h-4 text-gray-400" />
               )}
             </div>
           </div>
         </Button>
         
         {toolInvocation.isExpanded && toolInvocation.status === 'completed' && !toolInvocation.error && (
-          <div className="mt-3 pt-3 border-t border-slate-100 animate-in slide-in-from-top-2 duration-200">
-            <div className="space-y-2">
+          <div className="mt-4 pt-4 border-t border-gray-200 animate-in slide-in-from-top-2 duration-200">
+            <div className="space-y-3">
               {results.slice(0, toolInvocation.resultCount).map((result, index) => (
-                <div key={index} className="flex items-center justify-between py-2 px-3 bg-slate-50 rounded-lg">
+                <div key={index} className="flex items-center justify-between py-3 px-4 bg-gray-50 rounded-lg hover-scale">
                   <div className="flex-1">
-                    <div className="text-sm font-medium text-slate-800">
+                    <div className="text-body font-medium">
                       {result.title}
                     </div>
                     {result.subtitle && (
-                      <div className="text-xs text-slate-500">
+                      <div className="text-label normal-case">
                         {result.subtitle}
                       </div>
                     )}
                     {result.amount && (
-                      <div className="text-xs text-slate-600">
+                      <div className="text-label normal-case">
                         Amount: {result.amount}
                       </div>
                     )}
                     {result.owner && (
-                      <div className="text-xs text-slate-600">
+                      <div className="text-label normal-case">
                         Owner: {result.owner}
                       </div>
                     )}
                   </div>
-                  <div className="text-xs text-slate-500 bg-slate-200 px-2 py-1 rounded font-medium">
+                  <div className="text-label bg-gray-200 px-2 py-1 rounded">
                     {result.type}
                   </div>
                 </div>
@@ -198,21 +199,21 @@ export default function ToolInvocationCard({
         )}
         
         {toolInvocation.isExpanded && toolInvocation.status === 'error' && toolInvocation.error && (
-          <div className="mt-3 pt-3 border-t border-red-100 animate-in slide-in-from-top-2 duration-200">
-            <div className="p-3 bg-red-50 rounded-lg border border-red-200">
-              <div className="flex items-start space-x-2">
+          <div className="mt-4 pt-4 border-t border-red-200 animate-in slide-in-from-top-2 duration-200">
+            <div className="p-4 bg-red-50 rounded-lg border border-red-200">
+              <div className="flex items-start space-x-3">
                 <AlertTriangle className="w-4 h-4 text-red-500 flex-shrink-0 mt-0.5" />
                 <div className="flex-1">
-                  <div className="text-sm font-medium text-red-800 mb-1">
+                  <div className="text-body font-medium text-red-800 mb-2">
                     {toolInvocation.error.type === 'access' ? 'Access Denied' : 
                      toolInvocation.error.type === 'platform' ? 'Platform Access Constraint' : 
                      'Connection Error'}
                   </div>
-                  <div className="text-sm text-red-700">
+                  <div className="text-body text-red-700">
                     {toolInvocation.error.message}
                   </div>
                   {toolInvocation.error.code && (
-                    <div className="text-xs text-red-600 mt-1">
+                    <div className="text-label text-red-600 mt-2 normal-case">
                       Error Code: {toolInvocation.error.code}
                     </div>
                   )}
@@ -221,7 +222,8 @@ export default function ToolInvocationCard({
             </div>
           </div>
         )}
-      </div>
-    </Card>
+        </div>
+      </Card>
+    </div>
   );
 }

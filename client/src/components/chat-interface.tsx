@@ -78,14 +78,14 @@ export default function ChatInterface() {
   return (
     <div className="flex flex-col h-screen">
       {/* Header */}
-      <div className="flex items-center justify-between p-4 border-b border-slate-200 bg-white">
+      <div className="flex items-center justify-between p-6 border-b border-gray-200 bg-white">
         <VennLogo size="md" />
         <div className="flex items-center space-x-2">
-          <Button variant="ghost" size="sm" className="p-1.5 h-auto">
-            <MoreHorizontal className="w-4 h-4 text-slate-500" />
+          <Button variant="ghost" size="sm" className="p-1.5 h-auto hover-lift">
+            <MoreHorizontal className="w-4 h-4 text-gray-600" />
           </Button>
-          <Button variant="ghost" size="sm" className="p-1.5 h-auto">
-            <ExternalLink className="w-4 h-4 text-slate-500" />
+          <Button variant="ghost" size="sm" className="p-1.5 h-auto hover-lift">
+            <ExternalLink className="w-4 h-4 text-gray-600" />
           </Button>
         </div>
       </div>
@@ -105,13 +105,13 @@ export default function ChatInterface() {
       {/* Chat Messages */}
       <div 
         ref={chatContainerRef}
-        className="flex-1 overflow-y-auto px-4 py-4 space-y-4 chat-scroll"
+        className="flex-1 overflow-y-auto px-6 py-6 space-y-6 chat-scroll bg-gray-50"
       >
         {messages.length === 0 && !isLoading && (
           <div className="flex items-center justify-center min-h-[400px]">
-            <div className="text-center text-slate-500 max-w-sm px-4">
-              <p className="text-lg mb-2">Ask Venn to help with anything across your enterprise</p>
-              <p className="text-sm">Search through emails, documents, CRM data, and more to get the insights you need.</p>
+            <div className="text-center max-w-md px-4">
+              <h2 className="text-section-heading mb-4">Ask Venn to help with anything across your enterprise</h2>
+              <p className="text-body">Search through emails, documents, CRM data, and more to get the insights you need.</p>
             </div>
           </div>
         )}
@@ -124,8 +124,8 @@ export default function ChatInterface() {
       </div>
 
       {/* Chat Input */}
-      <div className="border-t border-slate-200 p-4 bg-white">
-        <div className="flex items-end space-x-3">
+      <div className="border-t border-gray-200 p-6 bg-white">
+        <div className="flex items-end space-x-4">
           <div className="flex-1 min-h-[44px] max-h-32">
             <Textarea
               ref={textareaRef}
@@ -133,14 +133,14 @@ export default function ChatInterface() {
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={handleKeyDown}
               placeholder="Chat with Venn..."
-              className="resize-none border-slate-300 rounded-2xl focus:ring-2 focus:ring-primary focus:border-transparent text-sm"
+              className="chat-input resize-none rounded-2xl"
               rows={1}
             />
           </div>
           <Button
             onClick={handleSendMessage}
             disabled={!input.trim() || isLoading}
-            className="w-11 h-11 bg-primary hover:bg-primary/90 text-white rounded-full p-0"
+            className="btn-primary w-11 h-11 rounded-full p-0 hover-lift active-scale"
           >
             <Send className="w-4 h-4" />
           </Button>

@@ -119,14 +119,14 @@ export default function EnhancedChatMessage({ message }: EnhancedChatMessageProp
 
   if (message.role === "user") {
     return (
-      <div className="flex items-start space-x-3 animate-fade-in">
-        <div className="w-8 h-8 bg-slate-600 rounded-full flex items-center justify-center flex-shrink-0">
-          <span className="text-white text-sm font-medium">LL</span>
+      <div className="flex items-start justify-end space-x-3 animate-fade-in">
+        <div className="chat-bubble-user">
+          <p>{message.content}</p>
         </div>
-        <div className="max-w-md bg-slate-100 text-slate-900 px-4 py-3 rounded-2xl">
-          <p className="text-sm">{message.content}</p>
+        <div className="w-8 h-8 bg-purple-primary rounded-full flex items-center justify-center flex-shrink-0">
+          <span className="text-white text-sm font-medium">U</span>
         </div>
-      </div>
+      </div>  
     );
   }
 
@@ -139,9 +139,16 @@ export default function EnhancedChatMessage({ message }: EnhancedChatMessageProp
       {/* Query Reasoning */}
       {thoughtProcess.status !== 'initializing' && (
         <div className="animate-fade-in">
-          <p className="text-sm text-slate-700 leading-relaxed mb-4">
-            {thoughtProcess.queryReasoning}
-          </p>
+          <div className="flex items-start space-x-3">
+            <div className="w-8 h-8 bg-purple-primary rounded-full flex items-center justify-center flex-shrink-0">
+              <span className="text-white text-sm font-bold">V</span>
+            </div>
+            <div className="flex-1">
+              <p className="text-body leading-relaxed mb-4">
+                {thoughtProcess.queryReasoning}
+              </p>
+            </div>
+          </div>
         </div>
       )}
 
@@ -165,8 +172,8 @@ export default function EnhancedChatMessage({ message }: EnhancedChatMessageProp
                 
                 {/* Show progress update after this tool completes */}
                 {progressUpdate && (
-                  <div className="mt-3 animate-fade-in">
-                    <div className="text-sm text-slate-700 leading-relaxed bg-slate-50 p-3 rounded-lg border-l-4 border-slate-300">
+                  <div className="mt-4 animate-fade-in">
+                    <div className="text-body leading-relaxed bg-gray-50 p-4 rounded-lg border-l-4 border-purple-primary ml-11">
                       {progressUpdate.message}
                     </div>
                   </div>
@@ -180,10 +187,19 @@ export default function EnhancedChatMessage({ message }: EnhancedChatMessageProp
       {/* Final Response */}
       {thoughtProcess.status === 'completed' && thoughtProcess.finalResponse && (
         <div className="animate-fade-in">
-          <div className="border-t pt-4 mt-6">
-            <h3 className="font-semibold text-slate-800 text-sm mb-3">Final Response</h3>
-            <div className="text-sm text-slate-700 leading-relaxed">
-              {thoughtProcess.finalResponse}
+          <div className="border-t border-gray-200 pt-6 mt-6">
+            <div className="flex items-start space-x-3">
+              <div className="w-8 h-8 bg-purple-primary rounded-full flex items-center justify-center flex-shrink-0">
+                <span className="text-white text-sm font-bold">V</span>
+              </div>
+              <div className="flex-1">
+                <div className="venn-card">
+                  <h3 className="text-section-heading mb-4">Final Response</h3>
+                  <div className="text-body leading-relaxed">
+                    {thoughtProcess.finalResponse}
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
