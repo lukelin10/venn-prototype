@@ -120,7 +120,7 @@ export default function ToolInvocationCard({
   };
 
   return (
-    <div className="ml-7 mr-0.5 w-full"> {/* Align with other chat content, reduced left margin to account for parent padding */}
+    <div className="ml-9"> {/* Align with avatar spacing */}
       <Card className={cn(
         "venn-card transition-all duration-300 ease-in-out",
         toolInvocation.status === 'pending' && "opacity-60",
