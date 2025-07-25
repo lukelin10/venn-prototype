@@ -102,9 +102,9 @@ export default function ToolInvocationCard({
   const getStatusIcon = () => {
     switch (toolInvocation.status) {
       case 'pending':
-        return <div className="w-4 h-4 rounded-full border-2 border-gray-300" />;
+        return <div className="w-3 h-3 rounded-full border-2 border-gray-300" />;
       case 'loading':
-        return <Loader2 className="w-4 h-4 animate-spin text-purple-primary" />;
+        return <Loader2 className="w-3 h-3 animate-spin text-purple-primary" />;
       case 'completed':
         return null; // No status icon when completed, just the service icon
       case 'error':
@@ -120,7 +120,7 @@ export default function ToolInvocationCard({
   };
 
   return (
-    <div className="ml-11"> {/* Align with other chat content */}
+    <div className="ml-9"> {/* Align with other chat content */}
       <Card className={cn(
         "venn-card transition-all duration-300 ease-in-out",
         toolInvocation.status === 'pending' && "opacity-60",
@@ -138,7 +138,7 @@ export default function ToolInvocationCard({
           <div className="flex items-center justify-between w-full gap-3">
             <div className="flex items-center space-x-3 flex-1 min-w-0">
               {(toolInvocation.status === 'completed' || toolInvocation.status === 'error') ? (
-                Icon && <Icon className={`w-4 h-4 ${serviceConfig.color} flex-shrink-0`} />
+                Icon && <Icon className={`w-3 h-3 ${serviceConfig.color} flex-shrink-0`} />
               ) : (
                 <div className="flex-shrink-0">{getStatusIcon()}</div>
               )}
@@ -149,7 +149,7 @@ export default function ToolInvocationCard({
             
             <div className="flex items-center space-x-2 flex-shrink-0">
               {toolInvocation.status === 'error' ? (
-                <AlertTriangle className="w-4 h-4 text-red-500" />
+                <AlertTriangle className="w-3 h-3 text-red-500" />
               ) : toolInvocation.status === 'completed' && (
                 <span className="text-label whitespace-nowrap">
                   {getResultText()}
@@ -157,8 +157,8 @@ export default function ToolInvocationCard({
               )}
               {toolInvocation.status !== 'pending' && (
                 toolInvocation.isExpanded ? 
-                  <ChevronDown className="w-4 h-4 text-gray-400" /> : 
-                  <ChevronRight className="w-4 h-4 text-gray-400" />
+                  <ChevronDown className="w-3 h-3 text-gray-400" /> : 
+                  <ChevronRight className="w-3 h-3 text-gray-400" />
               )}
             </div>
           </div>
@@ -202,7 +202,7 @@ export default function ToolInvocationCard({
           <div className="mt-4 pt-4 border-t border-red-200 animate-in slide-in-from-top-2 duration-200">
             <div className="p-4 bg-red-50 rounded-lg border border-red-200">
               <div className="flex items-start space-x-3">
-                <AlertTriangle className="w-4 h-4 text-red-500 flex-shrink-0 mt-0.5" />
+                <AlertTriangle className="w-3 h-3 text-red-500 flex-shrink-0 mt-0.5" />
                 <div className="flex-1">
                   <div className="text-body font-medium text-red-800 mb-2">
                     {toolInvocation.error.type === 'access' ? 'Access Denied' : 

@@ -16,25 +16,21 @@ const services = [
     id: "salesforce",
     name: "Salesforce",
     icon: SiSalesforce,
-    iconColor: "text-blue-600", // Keep original service brand colors for icons
   },
   {
     id: "notion", 
     name: "Notion",
     icon: SiNotion,
-    iconColor: "text-slate-800",
   },
   {
     id: "gdrive",
     name: "Google Drive", 
     icon: SiGoogledrive,
-    iconColor: "text-yellow-600",
   },
   {
     id: "gmail",
     name: "Gmail",
     icon: SiGmail,
-    iconColor: "text-red-600",
   },
 ];
 
@@ -58,8 +54,8 @@ export default function ServiceSelector({ selectedServices, onServiceToggle }: S
               }`}
             >
               <Icon 
-                className={`w-4 h-4 ${
-                  isSelected ? 'text-white' : service.iconColor
+                className={`w-3 h-3 ${
+                  isSelected ? 'text-white' : 'text-gray-500'
                 }`} 
               />
             </Button>

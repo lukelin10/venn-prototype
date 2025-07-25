@@ -123,8 +123,8 @@ export default function EnhancedChatMessage({ message }: EnhancedChatMessageProp
         <div className="chat-bubble-user">
           <p>{message.content}</p>
         </div>
-        <div className="w-8 h-8 bg-purple-primary rounded-full flex items-center justify-center flex-shrink-0">
-          <span className="text-white text-sm font-medium">U</span>
+        <div className="w-6 h-6 bg-purple-primary rounded-full flex items-center justify-center flex-shrink-0">
+          <span className="text-white text-xs font-medium">U</span>
         </div>
       </div>  
     );
@@ -140,8 +140,8 @@ export default function EnhancedChatMessage({ message }: EnhancedChatMessageProp
       {thoughtProcess.status !== 'initializing' && (
         <div className="animate-fade-in">
           <div className="flex items-start space-x-3">
-            <div className="w-8 h-8 bg-purple-primary rounded-full flex items-center justify-center flex-shrink-0">
-              <span className="text-white text-sm font-bold">V</span>
+            <div className="w-6 h-6 bg-purple-primary rounded-full flex items-center justify-center flex-shrink-0">
+              <span className="text-white text-xs font-bold">V</span>
             </div>
             <div className="flex-1">
               <p className="text-body leading-relaxed mb-4">
@@ -173,7 +173,7 @@ export default function EnhancedChatMessage({ message }: EnhancedChatMessageProp
                 {/* Show progress update after this tool completes */}
                 {progressUpdate && (
                   <div className="mt-4 animate-fade-in">
-                    <div className="text-body leading-relaxed bg-gray-50 p-4 rounded-lg border-l-4 border-purple-primary ml-11">
+                    <div className="text-body leading-relaxed bg-gray-50 p-3 rounded-lg border-l-4 border-purple-primary ml-9">
                       {progressUpdate.message}
                     </div>
                   </div>
@@ -189,8 +189,8 @@ export default function EnhancedChatMessage({ message }: EnhancedChatMessageProp
         <div className="animate-fade-in">
           <div className="border-t border-gray-200 pt-6 mt-6">
             <div className="flex items-start space-x-3">
-              <div className="w-8 h-8 bg-purple-primary rounded-full flex items-center justify-center flex-shrink-0">
-                <span className="text-white text-sm font-bold">V</span>
+              <div className="w-6 h-6 bg-purple-primary rounded-full flex items-center justify-center flex-shrink-0">
+                <span className="text-white text-xs font-bold">V</span>
               </div>
               <div className="flex-1">
                 <div className="venn-card">
