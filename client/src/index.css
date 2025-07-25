@@ -253,8 +253,8 @@
     padding: var(--space-3) var(--space-4);
     font-size: var(--text-base);
     line-height: 1.5;
-    max-width: 80%;
-    margin-left: auto;
+    width: 100%;
+    text-align: left;
   }
   
   /* AI chat bubble */
@@ -265,7 +265,8 @@
     padding: var(--space-3) var(--space-4);
     font-size: var(--text-base);
     line-height: 1.5;
-    max-width: 80%;
+    width: 100%;
+    text-align: left;
   }
   
   /* Typography Classes */
