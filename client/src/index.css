@@ -248,7 +248,7 @@
   /* User chat bubble */
   .chat-bubble-user {
     background: var(--purple-bg);
-    color: var(--purple-primary);
+    color: var(--gray-800);
     border-radius: 0.75rem;
     padding: var(--space-3) var(--space-4);
     font-size: var(--text-base);
