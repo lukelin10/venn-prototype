@@ -140,10 +140,7 @@ export default function EnhancedChatMessage({ message }: EnhancedChatMessageProp
       {thoughtProcess.status !== 'initializing' && (
         <div className="animate-fade-in">
           <div className="chat-panel-agent">
-            <div className="agent-avatar">
-              <span>V</span>
-            </div>
-            <div className="flex-1">
+            <div className="agent-content">
               <p className="text-body leading-relaxed">
                 {thoughtProcess.queryReasoning}
               </p>
@@ -173,7 +170,7 @@ export default function EnhancedChatMessage({ message }: EnhancedChatMessageProp
                 {/* Show progress update after this tool completes */}
                 {progressUpdate && (
                   <div className="mt-4 animate-fade-in">
-                    <div className="text-body leading-relaxed bg-gray-50 p-3 rounded-lg border-l-4 border-purple-primary ml-9">
+                    <div className="text-body leading-relaxed bg-gray-50 p-3 rounded-lg border-l-4 border-purple-primary ml-11">
                       {progressUpdate.message}
                     </div>
                   </div>
@@ -189,10 +186,7 @@ export default function EnhancedChatMessage({ message }: EnhancedChatMessageProp
         <div className="animate-fade-in">
           <div className="border-t border-gray-200 pt-6 mt-6">
             <div className="chat-panel-agent">
-              <div className="agent-avatar">
-                <span>V</span>
-              </div>
-              <div className="flex-1">
+              <div className="agent-content">
                 <div className="venn-card">
                   <h3 className="text-section-heading mb-4">Final Response</h3>
                   <div className="text-body leading-relaxed">

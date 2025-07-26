@@ -120,7 +120,7 @@ export default function ToolInvocationCard({
   };
 
   return (
-    <div className="ml-9"> {/* Align with other chat content */}
+    <div className="ml-11"> {/* Align with agent content */}
       <Card className={cn(
         "venn-card transition-all duration-300 ease-in-out",
         toolInvocation.status === 'pending' && "opacity-60",
