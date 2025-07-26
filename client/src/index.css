@@ -289,8 +289,8 @@
     margin-bottom: var(--space-4);
     background: transparent;
     padding: 0;
-    max-width: 85%;
-    margin-left: 2.75rem; /* Align with user message content, accounting for user avatar + gap */
+    max-width: 100%;
+    margin-left: 0; /* Align to left edge */
   }
 
   /* Agent content area */

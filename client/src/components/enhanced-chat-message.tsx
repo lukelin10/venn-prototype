@@ -170,7 +170,7 @@ export default function EnhancedChatMessage({ message }: EnhancedChatMessageProp
                 {/* Show progress update after this tool completes */}
                 {progressUpdate && (
                   <div className="mt-4 animate-fade-in">
-                    <div className="text-body leading-relaxed bg-gray-50 p-3 rounded-lg border-l-4 border-purple-primary ml-11">
+                    <div className="text-body leading-relaxed bg-gray-50 p-3 rounded-lg border-l-4 border-purple-primary ml-0">
                       {progressUpdate.message}
                     </div>
                   </div>
