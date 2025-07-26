@@ -259,17 +259,40 @@
 
   /* User avatar icon integrated into panel */
   .chat-panel-user .user-avatar {
-    width: 2rem;
-    height: 2rem;
+    width: 2.25rem;
+    height: 2.25rem;
     border-radius: 50%;
-    background: var(--purple-primary);
+    background: linear-gradient(135deg, var(--purple-primary) 0%, var(--purple-dark) 100%);
     color: var(--white);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: var(--text-xs);
-    font-weight: 600;
+    font-size: 0.625rem;
+    font-weight: 700;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    letter-spacing: 0.02em;
     flex-shrink: 0;
+    box-shadow: 0 2px 8px rgba(85, 0, 161, 0.25), 0 1px 3px rgba(0, 0, 0, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.15);
+    position: relative;
+    transition: all 0.2s ease;
+  }
+
+  .chat-panel-user .user-avatar:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(85, 0, 161, 0.3), 0 2px 6px rgba(0, 0, 0, 0.15);
+  }
+
+  .chat-panel-user .user-avatar::before {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    right: 2px;
+    height: 40%;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.2) 0%, transparent 100%);
+    border-radius: 50% 50% 0 0;
+    pointer-events: none;
   }
 
   /* User message content within panel */
