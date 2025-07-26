@@ -187,11 +187,8 @@ export default function EnhancedChatMessage({ message }: EnhancedChatMessageProp
           <div className="border-t border-gray-200 pt-6 mt-6">
             <div className="chat-panel-agent">
               <div className="agent-content">
-                <div className="venn-card">
-                  <h3 className="text-section-heading mb-4">Final Response</h3>
-                  <div className="text-body leading-relaxed">
-                    {thoughtProcess.finalResponse}
-                  </div>
+                <div className="text-body leading-relaxed">
+                  {thoughtProcess.finalResponse}
                 </div>
               </div>
             </div>
