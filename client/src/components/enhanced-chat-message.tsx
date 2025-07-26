@@ -119,11 +119,11 @@ export default function EnhancedChatMessage({ message }: EnhancedChatMessageProp
 
   if (message.role === "user") {
     return (
-      <div className="chat-message-user animate-fade-in">
+      <div className="chat-panel-user animate-fade-in">
         <div className="user-avatar">
           <span>TS</span>
         </div>
-        <div className="chat-bubble-user">
+        <div className="message-content">
           <p>{message.content}</p>
         </div>
       </div>  
@@ -139,12 +139,12 @@ export default function EnhancedChatMessage({ message }: EnhancedChatMessageProp
       {/* Query Reasoning */}
       {thoughtProcess.status !== 'initializing' && (
         <div className="animate-fade-in">
-          <div className="flex items-start space-x-3">
-            <div className="w-6 h-6 bg-purple-primary rounded-full flex items-center justify-center flex-shrink-0">
-              <span className="text-white text-xs font-bold">V</span>
+          <div className="chat-panel-agent">
+            <div className="agent-avatar">
+              <span>V</span>
             </div>
             <div className="flex-1">
-              <p className="text-body leading-relaxed mb-4">
+              <p className="text-body leading-relaxed">
                 {thoughtProcess.queryReasoning}
               </p>
             </div>
@@ -188,9 +188,9 @@ export default function EnhancedChatMessage({ message }: EnhancedChatMessageProp
       {thoughtProcess.status === 'completed' && thoughtProcess.finalResponse && (
         <div className="animate-fade-in">
           <div className="border-t border-gray-200 pt-6 mt-6">
-            <div className="flex items-start space-x-3">
-              <div className="w-6 h-6 bg-purple-primary rounded-full flex items-center justify-center flex-shrink-0">
-                <span className="text-white text-xs font-bold">V</span>
+            <div className="chat-panel-agent">
+              <div className="agent-avatar">
+                <span>V</span>
               </div>
               <div className="flex-1">
                 <div className="venn-card">

@@ -245,21 +245,20 @@
     box-shadow: 0 2px 8px rgba(85, 0, 161, 0.15);
   }
   
-  /* User chat bubble */
-  .chat-bubble-user {
+  /* Unified chat panel with integrated avatar */
+  .chat-panel-user {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-3);
+    margin-bottom: var(--space-4);
     background: var(--purple-bg);
-    color: var(--gray-800);
     border-radius: 0.75rem;
-    padding: var(--space-3) var(--space-4);
-    font-size: var(--text-base);
-    line-height: 1.5;
-    max-width: 80%;
-    margin-left: 0;
-    margin-right: auto;
+    padding: var(--space-3);
+    max-width: 85%;
   }
 
-  /* User avatar icon */
-  .user-avatar {
+  /* User avatar icon integrated into panel */
+  .chat-panel-user .user-avatar {
     width: 2rem;
     height: 2rem;
     border-radius: 50%;
@@ -273,12 +272,53 @@
     flex-shrink: 0;
   }
 
-  /* Chat message container with avatar */
-  .chat-message-user {
+  /* User message content within panel */
+  .chat-panel-user .message-content {
+    color: var(--gray-800);
+    font-size: var(--text-base);
+    line-height: 1.5;
+    flex: 1;
+    padding: var(--space-1) 0;
+  }
+
+  /* Agent chat panel (matching alignment) */
+  .chat-panel-agent {
     display: flex;
     align-items: flex-start;
     gap: var(--space-3);
     margin-bottom: var(--space-4);
+    background: var(--gray-100);
+    border-radius: 0.75rem;
+    padding: var(--space-3);
+    max-width: 85%;
+  }
+
+  /* Agent avatar */
+  .chat-panel-agent .agent-avatar {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    background: var(--purple-primary);
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--text-xs);
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+
+  /* Legacy styles for backwards compatibility */
+  .chat-bubble-user {
+    background: var(--purple-bg);
+    color: var(--gray-800);
+    border-radius: 0.75rem;
+    padding: var(--space-3) var(--space-4);
+    font-size: var(--text-base);
+    line-height: 1.5;
+    max-width: 80%;
+    margin-left: 0;
+    margin-right: auto;
   }
   
   /* AI chat bubble */
