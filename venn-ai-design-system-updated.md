@@ -58,10 +58,10 @@ This updated design system reflects the current state of the Venn.ai prototype, 
 ### Primary Brand Colors
 ```css
 /* Venn.ai purple palette */
---purple-primary: #7c3aed;    /* Main brand purple */
---purple-dark: #5b21b6;       /* Button hover, active states */
---purple-light: #a78bfa;      /* Accent, highlights */
---purple-bg: #f3f0ff;         /* Light background tints */
+--purple-primary: #5500A1;    /* Main brand purple */
+--purple-dark: #440080;       /* Button hover, active states */
+--purple-light: #8855CC;      /* Accent, highlights */
+--purple-bg: #F4F0FF;         /* Light background tints */
 
 /* Neutral foundation */
 --white: #ffffff;

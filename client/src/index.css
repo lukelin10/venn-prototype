@@ -6,10 +6,10 @@
 
 :root {
   /* Venn.ai Brand Colors - Official Design System */
-  --purple-primary: #7c3aed;
-  --purple-dark: #5b21b6;
-  --purple-light: #a78bfa;
-  --purple-bg: #f3f0ff;
+  --purple-primary: #5500A1;
+  --purple-dark: #440080;
+  --purple-light: #8855CC;
+  --purple-bg: #F4F0FF;
   
   /* Neutral Foundation */
   --white: #ffffff;
@@ -155,7 +155,7 @@
   .btn-primary:hover {
     background: var(--purple-dark);
     transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
+    box-shadow: 0 4px 12px rgba(85, 0, 161, 0.3);
   }
   
   .btn-primary:active {
@@ -242,13 +242,13 @@
   .service-icon.active {
     background: var(--white);
     border-color: var(--gray-200);
-    box-shadow: 0 2px 8px rgba(124, 58, 237, 0.15);
+    box-shadow: 0 2px 8px rgba(85, 0, 161, 0.15);
   }
   
   /* User chat bubble */
   .chat-bubble-user {
-    background: var(--purple-primary);
-    color: var(--white);
+    background: var(--purple-bg);
+    color: var(--purple-primary);
     border-radius: 0.75rem;
     padding: var(--space-3) var(--space-4);
     font-size: var(--text-base);
