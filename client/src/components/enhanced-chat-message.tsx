@@ -119,12 +119,12 @@ export default function EnhancedChatMessage({ message }: EnhancedChatMessageProp
 
   if (message.role === "user") {
     return (
-      <div className="flex items-start justify-end space-x-3 animate-fade-in">
+      <div className="chat-message-user animate-fade-in">
+        <div className="user-avatar">
+          <span>TS</span>
+        </div>
         <div className="chat-bubble-user">
           <p>{message.content}</p>
-        </div>
-        <div className="w-6 h-6 bg-purple-primary rounded-full flex items-center justify-center flex-shrink-0">
-          <span className="text-white text-xs font-medium">U</span>
         </div>
       </div>  
     );
